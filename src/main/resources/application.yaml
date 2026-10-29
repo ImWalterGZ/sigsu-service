@@ -1,0 +1,29 @@
+spring:
+  application:
+    name: sigsu-service
+  datasource:
+    url: ${SPRING_DATASOURCE_URL:jdbc:postgresql://localhost:5432/sigsu}
+    username: ${SPRING_DATASOURCE_USERNAME:sigsu}
+    password: ${SPRING_DATASOURCE_PASSWORD:sigsu}
+  jpa:
+    open-in-view: false
+    hibernate:
+      ddl-auto: validate
+  data:
+    redis:
+      host: ${SPRING_DATA_REDIS_HOST:localhost}
+      port: ${SPRING_DATA_REDIS_PORT:6379}
+  mail:
+    host: ${SPRING_MAIL_HOST:localhost}
+    port: ${SPRING_MAIL_PORT:1025}
+  servlet:
+    multipart:
+      max-file-size: 5MB
+      max-request-size: 6MB
+sigsu:
+  adjuntos:
+    ruta: ${SIGSU_ADJUNTOS_RUTA:./adjuntos}
+  idempotencia:
+    ttl: ${SIGSU_IDEMPOTENCIA_TTL:24h}
+  vencimientos:
+    cron: ${SIGSU_VENCIMIENTOS_CRON:0 */15 * * * *}
