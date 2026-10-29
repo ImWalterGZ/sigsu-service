@@ -1,0 +1,2241 @@
+{
+  "info": {
+    "name": "SIGSU · Reglas R0–R10",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Preparación",
+      "item": [
+        {
+          "name": "Preparación · Crear estudiante único de la corrida",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "auth": {
+              "type": "basic",
+              "basic": [
+                {
+                  "key": "username",
+                  "value": "{{admin}}",
+                  "type": "string"
+                },
+                {
+                  "key": "password",
+                  "value": "{{password}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "url": "{{baseUrl}}/administracion/usuarios",
+            "body": {
+              "mode": "raw",
+              "raw": "{\"correo\":\"{{estudiante}}\",\"nombre\":\"Ana Lucía Torres\",\"contrasena\":\"{{password}}\",\"roles\":[\"ESTUDIANTE\"]}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Status 201', () => pm.response.to.have.status(201));",
+                  "const j = pm.response.json();",
+                  "pm.test('Cuerpo esperado', () => { pm.expect(j.roles).to.include('ESTUDIANTE'); pm.expect(j.correo).to.eql(pm.environment.get('estudiante')); });"
+                ]
+              }
+            },
+            {
+              "listen": "prerequest",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.environment.set('estudiante', 'ana.'+pm.variables.replaceIn('{{$guid}}')+'@alumnos.utch.edu.mx'); pm.environment.set('otro', 'diego.'+pm.variables.replaceIn('{{$guid}}')+'@alumnos.utch.edu.mx');"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Preparación · Crear segundo estudiante",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "auth": {
+              "type": "basic",
+              "basic": [
+                {
+                  "key": "username",
+                  "value": "{{admin}}",
+                  "type": "string"
+                },
+                {
+                  "key": "password",
+                  "value": "{{password}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "url": "{{baseUrl}}/administracion/usuarios",
+            "body": {
+              "mode": "raw",
+              "raw": "{\"correo\":\"{{otro}}\",\"nombre\":\"Diego Ramírez\",\"contrasena\":\"{{password}}\",\"roles\":[\"ESTUDIANTE\"]}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Status 201', () => pm.response.to.have.status(201));",
+                  "const j = pm.response.json();",
+                  "pm.test('Cuerpo esperado', () => { pm.expect(j.correo).to.eql(pm.environment.get('otro')); });"
+                ]
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "R0 catálogo",
+      "item": [
+        {
+          "name": "R0 · Listar servicios activos",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "auth": {
+              "type": "basic",
+              "basic": [
+                {
+                  "key": "username",
+                  "value": "{{estudiante}}",
+                  "type": "string"
+                },
+                {
+                  "key": "password",
+                  "value": "{{password}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "url": "{{baseUrl}}/catalogo/servicios"
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Status 200', () => pm.response.to.have.status(200));",
+                  "const j = pm.response.json();",
+                  "pm.test('Cuerpo esperado', () => { pm.expect(j.length).to.be.at.least(3); j.forEach(s=>pm.expect(s.activo).to.eql(true)); });"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "R0 · Consultar constancia con esquema",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "auth": {
+              "type": "basic",
+              "basic": [
+                {
+                  "key": "username",
+                  "value": "{{estudiante}}",
+                  "type": "string"
+                },
+                {
+                  "key": "password",
+                  "value": "{{password}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "url": "{{baseUrl}}/catalogo/servicios/{{constancia}}"
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Status 200', () => pm.response.to.have.status(200));",
+                  "const j = pm.response.json();",
+                  "pm.test('Cuerpo esperado', () => { pm.expect(j.esquema.required).to.include('motivo'); pm.expect(j.id).to.eql(pm.environment.get('constancia')); });"
+                ]
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "R1 registrar",
+      "item": [
+        {
+          "name": "R1 · Registrar constancia → 201 con folio y venceEn",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Idempotency-Key",
+                "value": "{{$guid}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "auth": {
+              "type": "basic",
+              "basic": [
+                {
+                  "key": "username",
+                  "value": "{{estudiante}}",
+                  "type": "string"
+                },
+                {
+                  "key": "password",
+                  "value": "{{password}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "url": "{{baseUrl}}/solicitudes",
+            "body": {
+              "mode": "raw",
+              "raw": "{\"servicioId\":\"{{constancia}}\",\"datos\":{\"motivo\":\"Solicitud para beca escolar\",\"conCalificaciones\":true}}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Status 201', () => pm.response.to.have.status(201));",
+                  "const j = pm.response.json();",
+                  "pm.test('Cuerpo esperado', () => { pm.expect(j.folio).to.match(/^SIGSU-\\d{4}-\\d{6,}$/); pm.expect(j.estado).to.eql('REGISTRADA'); pm.expect(j.venceEn).to.be.a('string'); const d=new Date(j.venceEn); const local=new Date(d.toLocaleString('en-US',{timeZone:'America/Chihuahua'})); pm.expect([0,6]).not.to.include(local.getDay()); const fecha=d.toLocaleDateString('en-CA',{timeZone:'America/Chihuahua'}); pm.expect(['2026-11-02','2026-11-16','2026-12-25','2027-01-01']).not.to.include(fecha); });",
+                  "pm.environment.set('folio',j.folio); pm.environment.set('folioVersion',j.version);"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "R1 · Falta motivo → 422 con campos",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "auth": {
+              "type": "basic",
+              "basic": [
+                {
+                  "key": "username",
+                  "value": "{{estudiante}}",
+                  "type": "string"
+                },
+                {
+                  "key": "password",
+                  "value": "{{password}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "url": "{{baseUrl}}/solicitudes",
+            "body": {
+              "mode": "raw",
+              "raw": "{\"servicioId\":\"{{constancia}}\",\"datos\":{\"conCalificaciones\":true}}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Status 422', () => pm.response.to.have.status(422));",
+                  "const j = pm.response.json();",
+                  "pm.test('Cuerpo esperado', () => { pm.expect(j.status).to.eql(422); pm.expect(j.mensaje).to.be.a('string').and.not.empty; });pm.test('Cuerpo esperado', () => { pm.expect(j.errores).to.be.an('array').and.not.empty; pm.expect(JSON.stringify(j.errores)).to.include('motivo'); });"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "R1 · Asistentes con tipo erróneo → 422 con campos",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "auth": {
+              "type": "basic",
+              "basic": [
+                {
+                  "key": "username",
+                  "value": "{{estudiante}}",
+                  "type": "string"
+                },
+                {
+                  "key": "password",
+                  "value": "{{password}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "url": "{{baseUrl}}/solicitudes",
+            "body": {
+              "mode": "raw",
+              "raw": "{\"servicioId\":\"{{laboratorio}}\",\"datos\":{\"laboratorio\":\"Software\",\"fecha\":\"2026-11-06\",\"horario\":\"10:00-12:00\",\"asistentes\":\"veinte\"}}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Status 422', () => pm.response.to.have.status(422));",
+                  "const j = pm.response.json();",
+                  "pm.test('Cuerpo esperado', () => { pm.expect(j.status).to.eql(422); pm.expect(j.mensaje).to.be.a('string').and.not.empty; });pm.test('Cuerpo esperado', () => { pm.expect(j.errores).to.be.an('array').and.not.empty; pm.expect(JSON.stringify(j.errores)).to.include('asistentes'); });"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "R1 · Campo extra → 422 con campos",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "auth": {
+              "type": "basic",
+              "basic": [
+                {
+                  "key": "username",
+                  "value": "{{estudiante}}",
+                  "type": "string"
+                },
+                {
+                  "key": "password",
+                  "value": "{{password}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "url": "{{baseUrl}}/solicitudes",
+            "body": {
+              "mode": "raw",
+              "raw": "{\"servicioId\":\"{{constancia}}\",\"datos\":{\"motivo\":\"Beca escolar\",\"conCalificaciones\":true,\"extra\":1}}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Status 422', () => pm.response.to.have.status(422));",
+                  "const j = pm.response.json();",
+                  "pm.test('Cuerpo esperado', () => { pm.expect(j.status).to.eql(422); pm.expect(j.mensaje).to.be.a('string').and.not.empty; });pm.test('Cuerpo esperado', () => { pm.expect(j.errores).to.be.an('array').and.not.empty; pm.expect(JSON.stringify(j.errores)).to.include('extra'); });"
+                ]
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "R2 duplicado",
+      "item": [
+        {
+          "name": "R2 · Duplicado abierto → 409 con folio existente",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "auth": {
+              "type": "basic",
+              "basic": [
+                {
+                  "key": "username",
+                  "value": "{{estudiante}}",
+                  "type": "string"
+                },
+                {
+                  "key": "password",
+                  "value": "{{password}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "url": "{{baseUrl}}/solicitudes",
+            "body": {
+              "mode": "raw",
+              "raw": "{\"servicioId\":\"{{constancia}}\",\"datos\":{\"motivo\":\"Otra constancia\",\"conCalificaciones\":false}}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Status 409', () => pm.response.to.have.status(409));",
+                  "const j = pm.response.json();",
+                  "pm.test('Cuerpo esperado', () => { pm.expect(j.status).to.eql(409); pm.expect(j.mensaje).to.be.a('string').and.not.empty; });pm.test('Cuerpo esperado', () => { pm.expect(j.folioExistente).to.eql(pm.environment.get('folio')); });"
+                ]
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "R3 tomar",
+      "item": [
+        {
+          "name": "R3 · Otra área no puede tomar → 403",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "auth": {
+              "type": "basic",
+              "basic": [
+                {
+                  "key": "username",
+                  "value": "{{ti}}",
+                  "type": "string"
+                },
+                {
+                  "key": "password",
+                  "value": "{{password}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "url": "{{baseUrl}}/solicitudes/{{folio}}/tomar",
+            "body": {
+              "mode": "raw",
+              "raw": "{\"version\":{{folioVersion}}}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Status 403', () => pm.response.to.have.status(403));",
+                  "const j = pm.response.json();",
+                  "pm.test('Cuerpo esperado', () => { pm.expect(j.status).to.eql(403); pm.expect(j.mensaje).to.be.a('string').and.not.empty; });"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "R3 · Responsable A toma con versión leída → 200",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "auth": {
+              "type": "basic",
+              "basic": [
+                {
+                  "key": "username",
+                  "value": "{{responsable}}",
+                  "type": "string"
+                },
+                {
+                  "key": "password",
+                  "value": "{{password}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "url": "{{baseUrl}}/solicitudes/{{folio}}/tomar",
+            "body": {
+              "mode": "raw",
+              "raw": "{\"version\":{{folioVersion}}}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Status 200', () => pm.response.to.have.status(200));",
+                  "const j = pm.response.json();",
+                  "pm.test('Cuerpo esperado', () => { pm.expect(j.estado).to.eql('EN_ATENCION'); pm.expect(j.version).to.eql(1); });"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "R3 · Responsable B usa la misma versión → 409",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "auth": {
+              "type": "basic",
+              "basic": [
+                {
+                  "key": "username",
+                  "value": "{{responsableB}}",
+                  "type": "string"
+                },
+                {
+                  "key": "password",
+                  "value": "{{password}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "url": "{{baseUrl}}/solicitudes/{{folio}}/tomar",
+            "body": {
+              "mode": "raw",
+              "raw": "{\"version\":{{folioVersion}}}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Status 409', () => pm.response.to.have.status(409));",
+                  "const j = pm.response.json();",
+                  "pm.test('Cuerpo esperado', () => { pm.expect(j.status).to.eql(409); pm.expect(j.mensaje).to.be.a('string').and.not.empty; });"
+                ]
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "R4 cambiar estado",
+      "item": [
+        {
+          "name": "R4 · Rechazar sin observación → 422",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "auth": {
+              "type": "basic",
+              "basic": [
+                {
+                  "key": "username",
+                  "value": "{{responsable}}",
+                  "type": "string"
+                },
+                {
+                  "key": "password",
+                  "value": "{{password}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "url": "{{baseUrl}}/solicitudes/{{folio}}/estado",
+            "body": {
+              "mode": "raw",
+              "raw": "{\"estado\":\"RECHAZADA\"}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Status 422', () => pm.response.to.have.status(422));",
+                  "const j = pm.response.json();",
+                  "pm.test('Cuerpo esperado', () => { pm.expect(j.status).to.eql(422); pm.expect(j.mensaje).to.be.a('string').and.not.empty; });"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "R4 · Cancelar tomada → 409",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "auth": {
+              "type": "basic",
+              "basic": [
+                {
+                  "key": "username",
+                  "value": "{{estudiante}}",
+                  "type": "string"
+                },
+                {
+                  "key": "password",
+                  "value": "{{password}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "url": "{{baseUrl}}/solicitudes/{{folio}}/cancelar"
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Status 409', () => pm.response.to.have.status(409));",
+                  "const j = pm.response.json();",
+                  "pm.test('Cuerpo esperado', () => { pm.expect(j.status).to.eql(409); pm.expect(j.mensaje).to.be.a('string').and.not.empty; });"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "R4 · Atender con observación → 200 y cerradaEn",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "auth": {
+              "type": "basic",
+              "basic": [
+                {
+                  "key": "username",
+                  "value": "{{responsable}}",
+                  "type": "string"
+                },
+                {
+                  "key": "password",
+                  "value": "{{password}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "url": "{{baseUrl}}/solicitudes/{{folio}}/estado",
+            "body": {
+              "mode": "raw",
+              "raw": "{\"estado\":\"ATENDIDA\",\"observacion\":\"Constancia entregada en ventanilla\"}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Status 200', () => pm.response.to.have.status(200));",
+                  "const j = pm.response.json();",
+                  "pm.test('Cuerpo esperado', () => { pm.expect(j.estado).to.eql('ATENDIDA'); pm.expect(j.cerradaEn).to.be.a('string'); });"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "R4 · Registrar después del cierre → 201",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Idempotency-Key",
+                "value": "{{$guid}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "auth": {
+              "type": "basic",
+              "basic": [
+                {
+                  "key": "username",
+                  "value": "{{estudiante}}",
+                  "type": "string"
+                },
+                {
+                  "key": "password",
+                  "value": "{{password}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "url": "{{baseUrl}}/solicitudes",
+            "body": {
+              "mode": "raw",
+              "raw": "{\"servicioId\":\"{{constancia}}\",\"datos\":{\"motivo\":\"Solicitud para beca escolar\",\"conCalificaciones\":true}}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Status 201', () => pm.response.to.have.status(201));",
+                  "const j = pm.response.json();",
+                  "pm.test('Cuerpo esperado', () => { pm.expect(j.folio).to.match(/^SIGSU-\\d{4}-\\d{6,}$/); pm.expect(j.estado).to.eql('REGISTRADA'); pm.expect(j.venceEn).to.be.a('string');  });",
+                  "pm.environment.set('cancelable',j.folio); pm.environment.set('cancelableVersion',j.version);"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "R4 · Otro estudiante cancela → 403",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "auth": {
+              "type": "basic",
+              "basic": [
+                {
+                  "key": "username",
+                  "value": "{{otro}}",
+                  "type": "string"
+                },
+                {
+                  "key": "password",
+                  "value": "{{password}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "url": "{{baseUrl}}/solicitudes/{{cancelable}}/cancelar"
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Status 403', () => pm.response.to.have.status(403));",
+                  "const j = pm.response.json();",
+                  "pm.test('Cuerpo esperado', () => { pm.expect(j.status).to.eql(403); pm.expect(j.mensaje).to.be.a('string').and.not.empty; });"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "R4 · Dueño cancela registrada → 200 CANCELADA",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "auth": {
+              "type": "basic",
+              "basic": [
+                {
+                  "key": "username",
+                  "value": "{{estudiante}}",
+                  "type": "string"
+                },
+                {
+                  "key": "password",
+                  "value": "{{password}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "url": "{{baseUrl}}/solicitudes/{{cancelable}}/cancelar"
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Status 200', () => pm.response.to.have.status(200));",
+                  "const j = pm.response.json();",
+                  "pm.test('Cuerpo esperado', () => { pm.expect(j.estado).to.eql('CANCELADA'); pm.expect(j.cerradaEn).to.be.a('string'); });"
+                ]
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "R7 consultas",
+      "item": [
+        {
+          "name": "R7 · Preparar solicitud para bandeja",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Idempotency-Key",
+                "value": "{{$guid}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "auth": {
+              "type": "basic",
+              "basic": [
+                {
+                  "key": "username",
+                  "value": "{{estudiante}}",
+                  "type": "string"
+                },
+                {
+                  "key": "password",
+                  "value": "{{password}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "url": "{{baseUrl}}/solicitudes",
+            "body": {
+              "mode": "raw",
+              "raw": "{\"servicioId\":\"{{constancia}}\",\"datos\":{\"motivo\":\"Solicitud para beca escolar\",\"conCalificaciones\":true}}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Status 201', () => pm.response.to.have.status(201));",
+                  "const j = pm.response.json();",
+                  "pm.test('Cuerpo esperado', () => { pm.expect(j.folio).to.match(/^SIGSU-\\d{4}-\\d{6,}$/); pm.expect(j.estado).to.eql('REGISTRADA'); pm.expect(j.venceEn).to.be.a('string');  });",
+                  "pm.environment.set('pendiente',j.folio); pm.environment.set('pendienteVersion',j.version);"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "R7 · Preparar segunda fecha de vencimiento",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Idempotency-Key",
+                "value": "{{$guid}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "auth": {
+              "type": "basic",
+              "basic": [
+                {
+                  "key": "username",
+                  "value": "{{estudiante}}",
+                  "type": "string"
+                },
+                {
+                  "key": "password",
+                  "value": "{{password}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "url": "{{baseUrl}}/solicitudes",
+            "body": {
+              "mode": "raw",
+              "raw": "{\"servicioId\":\"{{passwordService}}\",\"datos\":{}}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Status 201', () => pm.response.to.have.status(201));",
+                  "const j = pm.response.json();",
+                  "pm.test('Cuerpo esperado', () => { pm.expect(j.folio).to.match(/^SIGSU-\\d{4}-\\d{6,}$/); pm.expect(j.estado).to.eql('REGISTRADA'); pm.expect(j.venceEn).to.be.a('string');  });",
+                  "pm.environment.set('tomada',j.folio); pm.environment.set('tomadaVersion',j.version);"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "R7 · Preparar otra solicitud del área",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Idempotency-Key",
+                "value": "{{$guid}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "auth": {
+              "type": "basic",
+              "basic": [
+                {
+                  "key": "username",
+                  "value": "{{otro}}",
+                  "type": "string"
+                },
+                {
+                  "key": "password",
+                  "value": "{{password}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "url": "{{baseUrl}}/solicitudes",
+            "body": {
+              "mode": "raw",
+              "raw": "{\"servicioId\":\"{{constancia}}\",\"datos\":{\"motivo\":\"Solicitud para beca escolar\",\"conCalificaciones\":true}}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Status 201', () => pm.response.to.have.status(201));",
+                  "const j = pm.response.json();",
+                  "pm.test('Cuerpo esperado', () => { pm.expect(j.folio).to.match(/^SIGSU-\\d{4}-\\d{6,}$/); pm.expect(j.estado).to.eql('REGISTRADA'); pm.expect(j.venceEn).to.be.a('string');  });",
+                  "pm.environment.set('otraBandeja',j.folio); pm.environment.set('otraBandejaVersion',j.version);"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "R7 · Bandeja ordenada por venceEn ascendente",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "auth": {
+              "type": "basic",
+              "basic": [
+                {
+                  "key": "username",
+                  "value": "{{responsable}}",
+                  "type": "string"
+                },
+                {
+                  "key": "password",
+                  "value": "{{password}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "url": "{{baseUrl}}/bandeja"
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Status 200', () => pm.response.to.have.status(200));",
+                  "const j = pm.response.json();",
+                  "pm.test('Cuerpo esperado', () => { pm.expect(j.length).to.be.at.least(2); for(let i=1;i<j.length;i++)pm.expect(Date.parse(j[i-1].venceEn)).to.be.at.most(Date.parse(j[i].venceEn)); });"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "R7 · Cancelar preparación del segundo estudiante",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "auth": {
+              "type": "basic",
+              "basic": [
+                {
+                  "key": "username",
+                  "value": "{{otro}}",
+                  "type": "string"
+                },
+                {
+                  "key": "password",
+                  "value": "{{password}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "url": "{{baseUrl}}/solicitudes/{{otraBandeja}}/cancelar"
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Status 200', () => pm.response.to.have.status(200));",
+                  "const j = pm.response.json();",
+                  "pm.test('Cuerpo esperado', () => { pm.expect(j.estado).to.eql('CANCELADA'); });"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "R7 · Detalle con historial ordenado",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "auth": {
+              "type": "basic",
+              "basic": [
+                {
+                  "key": "username",
+                  "value": "{{estudiante}}",
+                  "type": "string"
+                },
+                {
+                  "key": "password",
+                  "value": "{{password}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "url": "{{baseUrl}}/solicitudes/{{folio}}"
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Status 200', () => pm.response.to.have.status(200));",
+                  "const j = pm.response.json();",
+                  "pm.test('Cuerpo esperado', () => { pm.expect(j.solicitud.folio).to.eql(pm.environment.get('folio')); pm.expect(j.historial.length).to.be.at.least(3); for(let i=1;i<j.historial.length;i++)pm.expect(Date.parse(j.historial[i-1].fecha)).to.be.at.most(Date.parse(j.historial[i].fecha)); });"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "R7 · Estudiante pide bandeja → 403",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "auth": {
+              "type": "basic",
+              "basic": [
+                {
+                  "key": "username",
+                  "value": "{{estudiante}}",
+                  "type": "string"
+                },
+                {
+                  "key": "password",
+                  "value": "{{password}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "url": "{{baseUrl}}/bandeja"
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Status 403', () => pm.response.to.have.status(403));",
+                  "const j = pm.response.json();",
+                  "pm.test('Cuerpo esperado', () => { pm.expect(j.status).to.eql(403); pm.expect(j.mensaje).to.be.a('string').and.not.empty; });"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "R7 · Sin credenciales → 401",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "auth": {
+              "type": "noauth"
+            },
+            "url": "{{baseUrl}}/solicitudes"
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Status 401', () => pm.response.to.have.status(401));",
+                  "const j = pm.response.json();",
+                  "pm.test('Cuerpo esperado', () => { pm.expect(j.status).to.eql(401); pm.expect(j.mensaje).to.be.a('string').and.not.empty; });pm.test('Cuerpo esperado', () => { pm.expect(pm.response.headers.get('WWW-Authenticate')).to.include('Basic'); });"
+                ]
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "R6 notificaciones",
+      "item": [
+        {
+          "name": "R6 · Mailpit contiene correo del folio",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "auth": {
+              "type": "noauth"
+            },
+            "url": "http://localhost:8025/api/v1/search?query={{folio}}"
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Status 200', () => pm.response.to.have.status(200));",
+                  "const j = pm.response.json();",
+                  "pm.test('Cuerpo esperado', () => { pm.expect(j.messages).to.be.an('array').and.not.empty; pm.expect(JSON.stringify(j.messages)).to.include(pm.environment.get('folio')); });"
+                ]
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "R8 administración",
+      "item": [
+        {
+          "name": "R8 · Crear servicio con formulario v1",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "auth": {
+              "type": "basic",
+              "basic": [
+                {
+                  "key": "username",
+                  "value": "{{admin}}",
+                  "type": "string"
+                },
+                {
+                  "key": "password",
+                  "value": "{{password}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "url": "{{baseUrl}}/administracion/servicios",
+            "body": {
+              "mode": "raw",
+              "raw": "{\"nombre\":\"Constancia de horario {{$guid}}\",\"descripcion\":\"Emisión de horario escolar\",\"areaId\":\"00000000-0000-0000-0000-000000000001\",\"categoriaId\":\"00000000-0000-0000-0000-000000000011\",\"plazoDiasHabiles\":2,\"esquema\":{\"$schema\":\"https://json-schema.org/draft/2020-12/schema\",\"type\":\"object\",\"additionalProperties\":false,\"properties\":{},\"required\":[]}}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Status 201', () => pm.response.to.have.status(201));",
+                  "const j = pm.response.json();",
+                  "pm.test('Cuerpo esperado', () => { pm.expect(j.versionVigente).to.eql(1); });",
+                  "pm.environment.set('servicioNuevo',j.id);"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "R8 · Registrar con formulario v1",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Idempotency-Key",
+                "value": "{{$guid}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "auth": {
+              "type": "basic",
+              "basic": [
+                {
+                  "key": "username",
+                  "value": "{{estudiante}}",
+                  "type": "string"
+                },
+                {
+                  "key": "password",
+                  "value": "{{password}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "url": "{{baseUrl}}/solicitudes",
+            "body": {
+              "mode": "raw",
+              "raw": "{\"servicioId\":\"{{servicioNuevo}}\",\"datos\":{}}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Status 201', () => pm.response.to.have.status(201));",
+                  "const j = pm.response.json();",
+                  "pm.test('Cuerpo esperado', () => { pm.expect(j.folio).to.match(/^SIGSU-\\d{4}-\\d{6,}$/); pm.expect(j.estado).to.eql('REGISTRADA'); pm.expect(j.venceEn).to.be.a('string'); pm.expect(j.formularioVersion).to.eql(1); });",
+                  "pm.environment.set('previa',j.folio); pm.environment.set('previaVersion',j.version);"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "R8 · Publicar versión 2 del formulario",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "auth": {
+              "type": "basic",
+              "basic": [
+                {
+                  "key": "username",
+                  "value": "{{admin}}",
+                  "type": "string"
+                },
+                {
+                  "key": "password",
+                  "value": "{{password}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "url": "{{baseUrl}}/administracion/servicios/{{servicioNuevo}}/formularios",
+            "body": {
+              "mode": "raw",
+              "raw": "{\"esquema\":{\"$schema\":\"https://json-schema.org/draft/2020-12/schema\",\"type\":\"object\",\"additionalProperties\":false,\"properties\":{},\"required\":[]}}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Status 201', () => pm.response.to.have.status(201));",
+                  "const j = pm.response.json();",
+                  "pm.test('Cuerpo esperado', () => { pm.expect(j.versionVigente).to.eql(2); pm.expect(j.esquema.type).to.eql('object'); });"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "R8 · Solicitud previa conserva formularioVersion 1",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "auth": {
+              "type": "basic",
+              "basic": [
+                {
+                  "key": "username",
+                  "value": "{{estudiante}}",
+                  "type": "string"
+                },
+                {
+                  "key": "password",
+                  "value": "{{password}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "url": "{{baseUrl}}/solicitudes/{{previa}}"
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Status 200', () => pm.response.to.have.status(200));",
+                  "const j = pm.response.json();",
+                  "pm.test('Cuerpo esperado', () => { pm.expect(j.solicitud.formularioVersion).to.eql(1); });"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "R8 · Nueva solicitud usa formularioVersion 2",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Idempotency-Key",
+                "value": "{{$guid}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "auth": {
+              "type": "basic",
+              "basic": [
+                {
+                  "key": "username",
+                  "value": "{{otro}}",
+                  "type": "string"
+                },
+                {
+                  "key": "password",
+                  "value": "{{password}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "url": "{{baseUrl}}/solicitudes",
+            "body": {
+              "mode": "raw",
+              "raw": "{\"servicioId\":\"{{servicioNuevo}}\",\"datos\":{}}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Status 201', () => pm.response.to.have.status(201));",
+                  "const j = pm.response.json();",
+                  "pm.test('Cuerpo esperado', () => { pm.expect(j.folio).to.match(/^SIGSU-\\d{4}-\\d{6,}$/); pm.expect(j.estado).to.eql('REGISTRADA'); pm.expect(j.venceEn).to.be.a('string'); pm.expect(j.formularioVersion).to.eql(2); });",
+                  "pm.environment.set('nueva',j.folio); pm.environment.set('nuevaVersion',j.version);"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "R8 · Agregar día inhábil",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "auth": {
+              "type": "basic",
+              "basic": [
+                {
+                  "key": "username",
+                  "value": "{{admin}}",
+                  "type": "string"
+                },
+                {
+                  "key": "password",
+                  "value": "{{password}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "url": "{{baseUrl}}/administracion/dias-inhabiles",
+            "body": {
+              "mode": "raw",
+              "raw": "{\"fecha\":\"2040-12-24\",\"motivo\":\"Receso escolar de prueba\"}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Status 201', () => pm.response.to.have.status(201));",
+                  "const j = pm.response.json();",
+                  "pm.test('Cuerpo esperado', () => { pm.expect(j.fecha).to.eql('2040-12-24'); pm.expect(j.motivo).to.eql('Receso escolar de prueba'); });"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "R8 · Consultar días inhábiles",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "auth": {
+              "type": "basic",
+              "basic": [
+                {
+                  "key": "username",
+                  "value": "{{admin}}",
+                  "type": "string"
+                },
+                {
+                  "key": "password",
+                  "value": "{{password}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "url": "{{baseUrl}}/administracion/dias-inhabiles"
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Status 200', () => pm.response.to.have.status(200));",
+                  "const j = pm.response.json();",
+                  "pm.test('Cuerpo esperado', () => { pm.expect(j.some(d=>d.fecha==='2040-12-24')).to.eql(true); });"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "R8 · Consultar parámetros administrativos",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "auth": {
+              "type": "basic",
+              "basic": [
+                {
+                  "key": "username",
+                  "value": "{{admin}}",
+                  "type": "string"
+                },
+                {
+                  "key": "password",
+                  "value": "{{password}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "url": "{{baseUrl}}/administracion/parametros"
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Status 200', () => pm.response.to.have.status(200));",
+                  "const j = pm.response.json();",
+                  "pm.test('Cuerpo esperado', () => { pm.expect(j['zona.horaria']).to.eql('America/Chihuahua'); });"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "R8 · Guardar parámetro administrativo",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "auth": {
+              "type": "basic",
+              "basic": [
+                {
+                  "key": "username",
+                  "value": "{{admin}}",
+                  "type": "string"
+                },
+                {
+                  "key": "password",
+                  "value": "{{password}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "url": "{{baseUrl}}/administracion/parametros/evidencia.postman",
+            "body": {
+              "mode": "raw",
+              "raw": "{\"valor\":\"verificado\"}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Status 200', () => pm.response.to.have.status(200));",
+                  "const j = pm.response.json();",
+                  "pm.test('Cuerpo esperado', () => { pm.expect(j.valor).to.eql('verificado'); });"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "R8 · Crear usuario con dos roles",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "auth": {
+              "type": "basic",
+              "basic": [
+                {
+                  "key": "username",
+                  "value": "{{admin}}",
+                  "type": "string"
+                },
+                {
+                  "key": "password",
+                  "value": "{{password}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "url": "{{baseUrl}}/administracion/usuarios",
+            "body": {
+              "mode": "raw",
+              "raw": "{\"correo\":\"multirrol.{{$guid}}@utch.edu.mx\",\"nombre\":\"Miguel Ángel Castillo\",\"contrasena\":\"{{password}}\",\"roles\":[\"ESTUDIANTE\",\"RESPONSABLE\"]}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Status 201', () => pm.response.to.have.status(201));",
+                  "const j = pm.response.json();",
+                  "pm.test('Cuerpo esperado', () => { pm.expect(j.roles).to.have.members(['ESTUDIANTE','RESPONSABLE']); pm.expect(j.activo).to.eql(true); });",
+                  "pm.environment.set('usuarioMultirrol',j.id);"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "R8 · Asignar responsable a un área",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "auth": {
+              "type": "basic",
+              "basic": [
+                {
+                  "key": "username",
+                  "value": "{{admin}}",
+                  "type": "string"
+                },
+                {
+                  "key": "password",
+                  "value": "{{password}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "url": "{{baseUrl}}/administracion/usuarios/{{usuarioMultirrol}}/areas",
+            "body": {
+              "mode": "raw",
+              "raw": "{\"areaId\":\"00000000-0000-0000-0000-000000000003\"}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Status 204', () => pm.response.to.have.status(204));",
+                  "pm.test('Cuerpo esperado', () => { pm.expect(pm.response.text()).to.eql(''); });"
+                ]
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "R9 idempotencia",
+      "item": [
+        {
+          "name": "R9 · Primera petición con llave fija → 201",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Idempotency-Key",
+                "value": "{{idemKey}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "auth": {
+              "type": "basic",
+              "basic": [
+                {
+                  "key": "username",
+                  "value": "{{otro}}",
+                  "type": "string"
+                },
+                {
+                  "key": "password",
+                  "value": "{{password}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "url": "{{baseUrl}}/solicitudes",
+            "body": {
+              "mode": "raw",
+              "raw": "{\"servicioId\":\"{{constancia}}\",\"datos\":{\"motivo\":\"Solicitud idempotente para beca\",\"conCalificaciones\":true}}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Status 201', () => pm.response.to.have.status(201));",
+                  "const j = pm.response.json();",
+                  "pm.test('Cuerpo esperado', () => { pm.expect(j.estado).to.eql('REGISTRADA'); });",
+                  "pm.environment.set('idemFolio',j.folio); pm.environment.set('idemBody',JSON.stringify(j));"
+                ]
+              }
+            },
+            {
+              "listen": "prerequest",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.environment.set('idemKey',pm.variables.replaceIn('{{$guid}}'));"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "R9 · Repetir petición idéntica → mismo cuerpo y replay",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Idempotency-Key",
+                "value": "{{idemKey}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "auth": {
+              "type": "basic",
+              "basic": [
+                {
+                  "key": "username",
+                  "value": "{{otro}}",
+                  "type": "string"
+                },
+                {
+                  "key": "password",
+                  "value": "{{password}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "url": "{{baseUrl}}/solicitudes",
+            "body": {
+              "mode": "raw",
+              "raw": "{\"servicioId\":\"{{constancia}}\",\"datos\":{\"motivo\":\"Solicitud idempotente para beca\",\"conCalificaciones\":true}}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Status 201', () => pm.response.to.have.status(201));",
+                  "const j = pm.response.json();",
+                  "pm.test('Cuerpo esperado', () => { pm.expect(JSON.stringify(j)).to.eql(pm.environment.get('idemBody')); pm.expect(pm.response.headers.get('Idempotent-Replayed')).to.eql('true'); });"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "R9 · Misma llave con otro cuerpo → 422",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Idempotency-Key",
+                "value": "{{idemKey}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "auth": {
+              "type": "basic",
+              "basic": [
+                {
+                  "key": "username",
+                  "value": "{{otro}}",
+                  "type": "string"
+                },
+                {
+                  "key": "password",
+                  "value": "{{password}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "url": "{{baseUrl}}/solicitudes",
+            "body": {
+              "mode": "raw",
+              "raw": "{\"servicioId\":\"{{constancia}}\",\"datos\":{\"motivo\":\"Cuerpo diferente\",\"conCalificaciones\":false}}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Status 422', () => pm.response.to.have.status(422));",
+                  "const j = pm.response.json();",
+                  "pm.test('Cuerpo esperado', () => { pm.expect(j.status).to.eql(422); pm.expect(j.mensaje).to.be.a('string').and.not.empty; });"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "R9 · Solo existe una solicitud con el folio",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "auth": {
+              "type": "basic",
+              "basic": [
+                {
+                  "key": "username",
+                  "value": "{{otro}}",
+                  "type": "string"
+                },
+                {
+                  "key": "password",
+                  "value": "{{password}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "url": "{{baseUrl}}/solicitudes"
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Status 200', () => pm.response.to.have.status(200));",
+                  "const j = pm.response.json();",
+                  "pm.test('Cuerpo esperado', () => { pm.expect(j.filter(s=>s.folio===pm.environment.get('idemFolio'))).to.have.length(1); });"
+                ]
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "R10 adjuntos",
+      "item": [
+        {
+          "name": "R10 · Subir identificación pequeña → 201",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "auth": {
+              "type": "basic",
+              "basic": [
+                {
+                  "key": "username",
+                  "value": "{{estudiante}}",
+                  "type": "string"
+                },
+                {
+                  "key": "password",
+                  "value": "{{password}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "url": "{{baseUrl}}/solicitudes/{{pendiente}}/adjuntos",
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "archivo",
+                  "type": "file",
+                  "src": "archivos/identificacion.txt"
+                }
+              ]
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Status 201', () => pm.response.to.have.status(201));",
+                  "const j = pm.response.json();",
+                  "pm.test('Cuerpo esperado', () => { pm.expect(j.nombre).to.eql('identificacion.txt'); pm.expect(j.bytes).to.be.above(0); });",
+                  "pm.environment.set('adjunto',j.id);"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "R10 · Descargar identificación → 200",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "auth": {
+              "type": "basic",
+              "basic": [
+                {
+                  "key": "username",
+                  "value": "{{estudiante}}",
+                  "type": "string"
+                },
+                {
+                  "key": "password",
+                  "value": "{{password}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "url": "{{baseUrl}}/solicitudes/{{pendiente}}/adjuntos/{{adjunto}}"
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Status 200', () => pm.response.to.have.status(200));",
+                  "pm.test('Cuerpo esperado', () => { pm.expect(pm.response.text()).to.eql('Identificación escolar de prueba SIGSU.\\n'); pm.expect(pm.response.headers.get('Content-Disposition')).to.include('attachment'); });"
+                ]
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "R5 vencimientos",
+      "item": [
+        {
+          "name": "R5 · Tomar solicitud de TI antes de vencer",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "auth": {
+              "type": "basic",
+              "basic": [
+                {
+                  "key": "username",
+                  "value": "{{ti}}",
+                  "type": "string"
+                },
+                {
+                  "key": "password",
+                  "value": "{{password}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "url": "{{baseUrl}}/solicitudes/{{tomada}}/tomar",
+            "body": {
+              "mode": "raw",
+              "raw": "{\"version\":0}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Status 200', () => pm.response.to.have.status(200));",
+                  "const j = pm.response.json();",
+                  "pm.test('Cuerpo esperado', () => { pm.expect(j.estado).to.eql('EN_ATENCION'); });"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "R5 · Vencer registradas y en atención",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "auth": {
+              "type": "basic",
+              "basic": [
+                {
+                  "key": "username",
+                  "value": "{{admin}}",
+                  "type": "string"
+                },
+                {
+                  "key": "password",
+                  "value": "{{password}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "url": "{{baseUrl}}/administracion/vencimientos?ahora=2099-02-01T12:00:00Z"
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Status 200', () => pm.response.to.have.status(200));",
+                  "const j = pm.response.json();",
+                  "pm.test('Cuerpo esperado', () => { pm.expect(j.foliosSinRespuesta).to.include(pm.environment.get('pendiente')); pm.expect(j.foliosDemoradas).to.include(pm.environment.get('tomada')); });"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "R5 · Consultar SIN_RESPUESTA e historial del sistema",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "auth": {
+              "type": "basic",
+              "basic": [
+                {
+                  "key": "username",
+                  "value": "{{estudiante}}",
+                  "type": "string"
+                },
+                {
+                  "key": "password",
+                  "value": "{{password}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "url": "{{baseUrl}}/solicitudes/{{pendiente}}"
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Status 200', () => pm.response.to.have.status(200));",
+                  "const j = pm.response.json();",
+                  "pm.test('Cuerpo esperado', () => { pm.expect(j.solicitud.estado).to.eql('SIN_RESPUESTA'); const h=j.historial[j.historial.length-1]; pm.expect(h.autorId).to.eql(null); pm.expect(h.observacion).to.eql('plazo vencido'); pm.expect(h.nuevo).to.eql('SIN_RESPUESTA'); });"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "R5 · Consultar DEMORADO e historial del sistema",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "auth": {
+              "type": "basic",
+              "basic": [
+                {
+                  "key": "username",
+                  "value": "{{estudiante}}",
+                  "type": "string"
+                },
+                {
+                  "key": "password",
+                  "value": "{{password}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "url": "{{baseUrl}}/solicitudes/{{tomada}}"
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Status 200', () => pm.response.to.have.status(200));",
+                  "const j = pm.response.json();",
+                  "pm.test('Cuerpo esperado', () => { pm.expect(j.solicitud.estado).to.eql('DEMORADO'); const h=j.historial[j.historial.length-1]; pm.expect(h.autorId).to.eql(null); pm.expect(h.observacion).to.eql('plazo vencido'); pm.expect(h.nuevo).to.eql('DEMORADO'); });"
+                ]
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
