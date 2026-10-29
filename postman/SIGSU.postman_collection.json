@@ -1387,7 +1387,7 @@
             "url": "{{baseUrl}}/administracion/servicios/{{servicioNuevo}}/formularios",
             "body": {
               "mode": "raw",
-              "raw": "{\"esquema\":{\"$schema\":\"https://json-schema.org/draft/2020-12/schema\",\"type\":\"object\",\"additionalProperties\":false,\"properties\":{},\"required\":[]}}",
+              "raw": "{\"esquema\":{\"$schema\":\"https://json-schema.org/draft/2020-12/schema\",\"type\":\"object\",\"additionalProperties\":false,\"properties\":{\"motivo\":{\"type\":\"string\",\"minLength\":5}},\"required\":[\"motivo\"]}}",
               "options": {
                 "raw": {
                   "language": "json"
@@ -1403,7 +1403,7 @@
                 "exec": [
                   "pm.test('Status 201', () => pm.response.to.have.status(201));",
                   "const j = pm.response.json();",
-                  "pm.test('Cuerpo esperado', () => { pm.expect(j.versionVigente).to.eql(2); pm.expect(j.esquema.type).to.eql('object'); });"
+                  "pm.test('Cuerpo esperado', () => { pm.expect(j.versionVigente).to.eql(2); pm.expect(j.esquema.type).to.eql('object'); pm.expect(j.esquema.required).to.eql(['motivo']); });"
                 ]
               }
             }
@@ -1477,7 +1477,7 @@
             "url": "{{baseUrl}}/solicitudes",
             "body": {
               "mode": "raw",
-              "raw": "{\"servicioId\":\"{{servicioNuevo}}\",\"datos\":{}}",
+              "raw": "{\"servicioId\":\"{{servicioNuevo}}\",\"datos\":{\"motivo\":\"Horario para solicitud de beca\"}}",
               "options": {
                 "raw": {
                   "language": "json"
