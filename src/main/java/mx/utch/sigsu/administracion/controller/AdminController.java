@@ -7,13 +7,10 @@ import mx.utch.sigsu.administracion.service.*;
 import mx.utch.sigsu.catalogo.dto.*;
 import mx.utch.sigsu.catalogo.service.IGestionCatalogo;
 import mx.utch.sigsu.seguridad.dto.*;
-import mx.utch.sigsu.solicitudes.dto.VencimientosDto;
-import mx.utch.sigsu.solicitudes.service.VencerSolicitudes;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
-import java.time.Instant;
 import java.util.*;
 
 @RestController
@@ -22,17 +19,14 @@ public class AdminController {
     private final IGestionCatalogo catalogo;
     private final GestionarUsuarios usuarios;
     private final GestionarParametros parametros;
-    private final VencerSolicitudes vencimientos;
 
     public AdminController(
             IGestionCatalogo catalogo,
             GestionarUsuarios usuarios,
-            GestionarParametros parametros,
-            VencerSolicitudes vencimientos) {
+            GestionarParametros parametros) {
         this.catalogo = catalogo;
         this.usuarios = usuarios;
         this.parametros = parametros;
-        this.vencimientos = vencimientos;
     }
 
     @PostMapping("/servicios")
@@ -85,10 +79,5 @@ public class AdminController {
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void asignar(@PathVariable UUID id, @Valid @RequestBody AsignarResponsableDto datos) {
         usuarios.asignar(id, datos.areaId());
-    }
-
-    @PostMapping("/vencimientos")
-    public VencimientosDto vencer(@RequestParam(required = false) Instant ahora) {
-        return vencimientos.vencer(ahora == null ? Instant.now() : ahora);
     }
 }
