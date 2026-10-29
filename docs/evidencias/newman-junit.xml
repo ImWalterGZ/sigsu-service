@@ -1,0 +1,195 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites name="SIGSU · Reglas R0–R10" tests="48" time="4.903">
+  <testsuite name="Preparación / Preparación · Crear estudiante único de la corrida" id="556a31a0-749e-4960-9aaa-f9e739cc60b1" timestamp="2026-10-29T03:26:16.166Z" tests="2" failures="0" errors="0" time="0.663">
+    <testcase name="Status 201" time="0.663" classname="PreparacionPreparacionCrearEstudianteUnicoDeLaCorrida"/>
+    <testcase name="Cuerpo esperado" time="0.663" classname="PreparacionPreparacionCrearEstudianteUnicoDeLaCorrida"/>
+  </testsuite>
+  <testsuite name="Preparación / Preparación · Crear segundo estudiante" id="5c589008-22c9-4582-bb12-6764cace7efe" timestamp="2026-10-29T03:26:16.166Z" tests="2" failures="0" errors="0" time="0.165">
+    <testcase name="Status 201" time="0.165" classname="PreparacionPreparacionCrearSegundoEstudiante"/>
+    <testcase name="Cuerpo esperado" time="0.165" classname="PreparacionPreparacionCrearSegundoEstudiante"/>
+  </testsuite>
+  <testsuite name="R0 catálogo / R0 · Listar servicios activos" id="834aee10-4d95-493b-bf80-d8c4c653899e" timestamp="2026-10-29T03:26:16.166Z" tests="2" failures="0" errors="0" time="0.138">
+    <testcase name="Status 200" time="0.138" classname="R0CatalogoR0ListarServiciosActivos"/>
+    <testcase name="Cuerpo esperado" time="0.138" classname="R0CatalogoR0ListarServiciosActivos"/>
+  </testsuite>
+  <testsuite name="R0 catálogo / R0 · Consultar constancia con esquema" id="231df733-83c5-4a37-9baf-de8c6a4a21b8" timestamp="2026-10-29T03:26:16.166Z" tests="2" failures="0" errors="0" time="0.098">
+    <testcase name="Status 200" time="0.098" classname="R0CatalogoR0ConsultarConstanciaConEsquema"/>
+    <testcase name="Cuerpo esperado" time="0.098" classname="R0CatalogoR0ConsultarConstanciaConEsquema"/>
+  </testsuite>
+  <testsuite name="R1 registrar / R1 · Registrar constancia → 201 con folio y venceEn" id="8ef378f9-ebbd-4f89-8579-c5562d4b94e0" timestamp="2026-10-29T03:26:16.166Z" tests="2" failures="0" errors="0" time="0.215">
+    <testcase name="Status 201" time="0.215" classname="R1RegistrarR1RegistrarConstancia201ConFolioYVenceEn"/>
+    <testcase name="Cuerpo esperado" time="0.215" classname="R1RegistrarR1RegistrarConstancia201ConFolioYVenceEn"/>
+  </testsuite>
+  <testsuite name="R1 registrar / R1 · Falta motivo → 422 con campos" id="2cdc4f81-43bd-4679-95a5-8d1dff9fef12" timestamp="2026-10-29T03:26:16.166Z" tests="3" failures="0" errors="0" time="0.096">
+    <testcase name="Status 422" time="0.096" classname="R1RegistrarR1FaltaMotivo422ConCampos"/>
+    <testcase name="Cuerpo esperado" time="0.096" classname="R1RegistrarR1FaltaMotivo422ConCampos"/>
+  </testsuite>
+  <testsuite name="R1 registrar / R1 · Asistentes con tipo erróneo → 422 con campos" id="749c02d8-ba9c-448a-90f9-01e15e5220b8" timestamp="2026-10-29T03:26:16.166Z" tests="3" failures="0" errors="0" time="0.095">
+    <testcase name="Status 422" time="0.095" classname="R1RegistrarR1AsistentesConTipoErroneo422ConCampos"/>
+    <testcase name="Cuerpo esperado" time="0.095" classname="R1RegistrarR1AsistentesConTipoErroneo422ConCampos"/>
+  </testsuite>
+  <testsuite name="R1 registrar / R1 · Campo extra → 422 con campos" id="3ebb215a-9b1e-4071-93a0-8fa93aa1522f" timestamp="2026-10-29T03:26:16.166Z" tests="3" failures="0" errors="0" time="0.075">
+    <testcase name="Status 422" time="0.075" classname="R1RegistrarR1CampoExtra422ConCampos"/>
+    <testcase name="Cuerpo esperado" time="0.075" classname="R1RegistrarR1CampoExtra422ConCampos"/>
+  </testsuite>
+  <testsuite name="R2 duplicado / R2 · Duplicado abierto → 409 con folio existente" id="28f75139-b50a-4edb-b420-5aeae0bad886" timestamp="2026-10-29T03:26:16.166Z" tests="3" failures="0" errors="0" time="0.100">
+    <testcase name="Status 409" time="0.100" classname="R2DuplicadoR2DuplicadoAbierto409ConFolioExistente"/>
+    <testcase name="Cuerpo esperado" time="0.100" classname="R2DuplicadoR2DuplicadoAbierto409ConFolioExistente"/>
+  </testsuite>
+  <testsuite name="R3 tomar / R3 · Otra área no puede tomar → 403" id="af76132f-122d-445e-94ae-322a6512df1a" timestamp="2026-10-29T03:26:16.166Z" tests="2" failures="0" errors="0" time="0.101">
+    <testcase name="Status 403" time="0.101" classname="R3TomarR3OtraAreaNoPuedeTomar403"/>
+    <testcase name="Cuerpo esperado" time="0.101" classname="R3TomarR3OtraAreaNoPuedeTomar403"/>
+  </testsuite>
+  <testsuite name="R3 tomar / R3 · Responsable A toma con versión leída → 200" id="f211dc65-1cd5-48a3-8d7c-b2ec0bea41c0" timestamp="2026-10-29T03:26:16.166Z" tests="2" failures="0" errors="0" time="0.110">
+    <testcase name="Status 200" time="0.110" classname="R3TomarR3ResponsableATomaConVersionLeida200"/>
+    <testcase name="Cuerpo esperado" time="0.110" classname="R3TomarR3ResponsableATomaConVersionLeida200"/>
+  </testsuite>
+  <testsuite name="R3 tomar / R3 · Responsable B usa la misma versión → 409" id="5ece296b-1dd9-47b9-8dae-b76f5fef87c1" timestamp="2026-10-29T03:26:16.166Z" tests="2" failures="0" errors="0" time="0.081">
+    <testcase name="Status 409" time="0.081" classname="R3TomarR3ResponsableBUsaLaMismaVersion409"/>
+    <testcase name="Cuerpo esperado" time="0.081" classname="R3TomarR3ResponsableBUsaLaMismaVersion409"/>
+  </testsuite>
+  <testsuite name="R4 cambiar estado / R4 · Rechazar sin observación → 422" id="d03c948d-bf13-44a9-af65-d46fec5d32de" timestamp="2026-10-29T03:26:16.166Z" tests="2" failures="0" errors="0" time="0.093">
+    <testcase name="Status 422" time="0.093" classname="R4CambiarEstadoR4RechazarSinObservacion422"/>
+    <testcase name="Cuerpo esperado" time="0.093" classname="R4CambiarEstadoR4RechazarSinObservacion422"/>
+  </testsuite>
+  <testsuite name="R4 cambiar estado / R4 · Cancelar tomada → 409" id="b85d2a67-8df7-4637-961f-f79c3841b02c" timestamp="2026-10-29T03:26:16.166Z" tests="2" failures="0" errors="0" time="0.082">
+    <testcase name="Status 409" time="0.082" classname="R4CambiarEstadoR4CancelarTomada409"/>
+    <testcase name="Cuerpo esperado" time="0.082" classname="R4CambiarEstadoR4CancelarTomada409"/>
+  </testsuite>
+  <testsuite name="R4 cambiar estado / R4 · Atender con observación → 200 y cerradaEn" id="162dfd3e-2277-4ad3-a60a-592657a527ad" timestamp="2026-10-29T03:26:16.166Z" tests="2" failures="0" errors="0" time="0.099">
+    <testcase name="Status 200" time="0.099" classname="R4CambiarEstadoR4AtenderConObservacion200YCerradaEn"/>
+    <testcase name="Cuerpo esperado" time="0.099" classname="R4CambiarEstadoR4AtenderConObservacion200YCerradaEn"/>
+  </testsuite>
+  <testsuite name="R4 cambiar estado / R4 · Registrar después del cierre → 201" id="80d328b2-5ae2-484e-a616-5706c0aeca46" timestamp="2026-10-29T03:26:16.166Z" tests="2" failures="0" errors="0" time="0.079">
+    <testcase name="Status 201" time="0.079" classname="R4CambiarEstadoR4RegistrarDespuesDelCierre201"/>
+    <testcase name="Cuerpo esperado" time="0.079" classname="R4CambiarEstadoR4RegistrarDespuesDelCierre201"/>
+  </testsuite>
+  <testsuite name="R4 cambiar estado / R4 · Otro estudiante cancela → 403" id="b05ccd28-842c-4ac6-adad-db53ae855fd3" timestamp="2026-10-29T03:26:16.166Z" tests="2" failures="0" errors="0" time="0.066">
+    <testcase name="Status 403" time="0.066" classname="R4CambiarEstadoR4OtroEstudianteCancela403"/>
+    <testcase name="Cuerpo esperado" time="0.066" classname="R4CambiarEstadoR4OtroEstudianteCancela403"/>
+  </testsuite>
+  <testsuite name="R4 cambiar estado / R4 · Dueño cancela registrada → 200 CANCELADA" id="204a34b9-fe8e-4614-9cf7-d19f720aeed9" timestamp="2026-10-29T03:26:16.166Z" tests="2" failures="0" errors="0" time="0.090">
+    <testcase name="Status 200" time="0.090" classname="R4CambiarEstadoR4DuenoCancelaRegistrada200Cancelada"/>
+    <testcase name="Cuerpo esperado" time="0.090" classname="R4CambiarEstadoR4DuenoCancelaRegistrada200Cancelada"/>
+  </testsuite>
+  <testsuite name="R7 consultas / R7 · Preparar solicitud para bandeja" id="f3c5dfc1-f6d6-49c1-a92e-c256895cd517" timestamp="2026-10-29T03:26:16.166Z" tests="2" failures="0" errors="0" time="0.076">
+    <testcase name="Status 201" time="0.076" classname="R7ConsultasR7PrepararSolicitudParaBandeja"/>
+    <testcase name="Cuerpo esperado" time="0.076" classname="R7ConsultasR7PrepararSolicitudParaBandeja"/>
+  </testsuite>
+  <testsuite name="R7 consultas / R7 · Preparar segunda fecha de vencimiento" id="45680449-5a5d-4088-b87f-335e627d895c" timestamp="2026-10-29T03:26:16.166Z" tests="2" failures="0" errors="0" time="0.091">
+    <testcase name="Status 201" time="0.091" classname="R7ConsultasR7PrepararSegundaFechaDeVencimiento"/>
+    <testcase name="Cuerpo esperado" time="0.091" classname="R7ConsultasR7PrepararSegundaFechaDeVencimiento"/>
+  </testsuite>
+  <testsuite name="R7 consultas / R7 · Preparar otra solicitud del área" id="b00fe03a-f586-481f-91dd-62b6c4e1294b" timestamp="2026-10-29T03:26:16.166Z" tests="2" failures="0" errors="0" time="0.100">
+    <testcase name="Status 201" time="0.100" classname="R7ConsultasR7PrepararOtraSolicitudDelArea"/>
+    <testcase name="Cuerpo esperado" time="0.100" classname="R7ConsultasR7PrepararOtraSolicitudDelArea"/>
+  </testsuite>
+  <testsuite name="R7 consultas / R7 · Bandeja ordenada por venceEn ascendente" id="048b3804-7ffc-4431-8310-c9f9a70c6884" timestamp="2026-10-29T03:26:16.166Z" tests="2" failures="0" errors="0" time="0.088">
+    <testcase name="Status 200" time="0.088" classname="R7ConsultasR7BandejaOrdenadaPorVenceEnAscendente"/>
+    <testcase name="Cuerpo esperado" time="0.088" classname="R7ConsultasR7BandejaOrdenadaPorVenceEnAscendente"/>
+  </testsuite>
+  <testsuite name="R7 consultas / R7 · Cancelar preparación del segundo estudiante" id="a14fd8b0-1ce9-4fb0-91d4-01130332f750" timestamp="2026-10-29T03:26:16.166Z" tests="2" failures="0" errors="0" time="0.071">
+    <testcase name="Status 200" time="0.071" classname="R7ConsultasR7CancelarPreparacionDelSegundoEstudiante"/>
+    <testcase name="Cuerpo esperado" time="0.071" classname="R7ConsultasR7CancelarPreparacionDelSegundoEstudiante"/>
+  </testsuite>
+  <testsuite name="R7 consultas / R7 · Detalle con historial ordenado" id="ce5af50c-3957-4039-93bb-93e691c79ad7" timestamp="2026-10-29T03:26:16.166Z" tests="2" failures="0" errors="0" time="0.105">
+    <testcase name="Status 200" time="0.105" classname="R7ConsultasR7DetalleConHistorialOrdenado"/>
+    <testcase name="Cuerpo esperado" time="0.105" classname="R7ConsultasR7DetalleConHistorialOrdenado"/>
+  </testsuite>
+  <testsuite name="R7 consultas / R7 · Estudiante pide bandeja → 403" id="1193e3b2-f390-4668-8c38-34e2b0c9be84" timestamp="2026-10-29T03:26:16.166Z" tests="2" failures="0" errors="0" time="0.093">
+    <testcase name="Status 403" time="0.093" classname="R7ConsultasR7EstudiantePideBandeja403"/>
+    <testcase name="Cuerpo esperado" time="0.093" classname="R7ConsultasR7EstudiantePideBandeja403"/>
+  </testsuite>
+  <testsuite name="R7 consultas / R7 · Sin credenciales → 401" id="d9515b28-595c-44c2-96b6-37e475a579e2" timestamp="2026-10-29T03:26:16.166Z" tests="3" failures="0" errors="0" time="0.004">
+    <testcase name="Status 401" time="0.004" classname="R7ConsultasR7SinCredenciales401"/>
+    <testcase name="Cuerpo esperado" time="0.004" classname="R7ConsultasR7SinCredenciales401"/>
+  </testsuite>
+  <testsuite name="R6 notificaciones / R6 · Mailpit contiene correo del folio" id="7681b7b4-10a3-4a3a-8355-1a1d9d049b83" timestamp="2026-10-29T03:26:16.166Z" tests="2" failures="0" errors="0" time="0.009">
+    <testcase name="Status 200" time="0.009" classname="R6NotificacionesR6MailpitContieneCorreoDelFolio"/>
+    <testcase name="Cuerpo esperado" time="0.009" classname="R6NotificacionesR6MailpitContieneCorreoDelFolio"/>
+  </testsuite>
+  <testsuite name="R8 administración / R8 · Crear servicio con formulario v1" id="8160949f-aa3a-4215-9ede-b2d182864b83" timestamp="2026-10-29T03:26:16.166Z" tests="2" failures="0" errors="0" time="0.084">
+    <testcase name="Status 201" time="0.084" classname="R8AdministracionR8CrearServicioConFormularioV1"/>
+    <testcase name="Cuerpo esperado" time="0.084" classname="R8AdministracionR8CrearServicioConFormularioV1"/>
+  </testsuite>
+  <testsuite name="R8 administración / R8 · Registrar con formulario v1" id="11f8e326-45e3-413d-abd9-96f2cbfa4072" timestamp="2026-10-29T03:26:16.166Z" tests="2" failures="0" errors="0" time="0.078">
+    <testcase name="Status 201" time="0.078" classname="R8AdministracionR8RegistrarConFormularioV1"/>
+    <testcase name="Cuerpo esperado" time="0.078" classname="R8AdministracionR8RegistrarConFormularioV1"/>
+  </testsuite>
+  <testsuite name="R8 administración / R8 · Publicar versión 2 del formulario" id="6e18784a-6d6c-49de-8fb6-052b70b0229a" timestamp="2026-10-29T03:26:16.166Z" tests="2" failures="0" errors="0" time="0.073">
+    <testcase name="Status 201" time="0.073" classname="R8AdministracionR8PublicarVersion2DelFormulario"/>
+    <testcase name="Cuerpo esperado" time="0.073" classname="R8AdministracionR8PublicarVersion2DelFormulario"/>
+  </testsuite>
+  <testsuite name="R8 administración / R8 · Solicitud previa conserva formularioVersion 1" id="05e40726-e368-4049-90de-0789b8223bd4" timestamp="2026-10-29T03:26:16.166Z" tests="2" failures="0" errors="0" time="0.097">
+    <testcase name="Status 200" time="0.097" classname="R8AdministracionR8SolicitudPreviaConservaFormularioVersion1"/>
+    <testcase name="Cuerpo esperado" time="0.097" classname="R8AdministracionR8SolicitudPreviaConservaFormularioVersion1"/>
+  </testsuite>
+  <testsuite name="R8 administración / R8 · Nueva solicitud usa formularioVersion 2" id="51f39856-efdb-47d5-9c20-e0d9070ba359" timestamp="2026-10-29T03:26:16.166Z" tests="2" failures="0" errors="0" time="0.075">
+    <testcase name="Status 201" time="0.075" classname="R8AdministracionR8NuevaSolicitudUsaFormularioVersion2"/>
+    <testcase name="Cuerpo esperado" time="0.075" classname="R8AdministracionR8NuevaSolicitudUsaFormularioVersion2"/>
+  </testsuite>
+  <testsuite name="R8 administración / R8 · Agregar día inhábil" id="66cb319e-f4e4-4d92-9530-cb27cd0cd152" timestamp="2026-10-29T03:26:16.166Z" tests="2" failures="0" errors="0" time="0.074">
+    <testcase name="Status 201" time="0.074" classname="R8AdministracionR8AgregarDiaInhabil"/>
+    <testcase name="Cuerpo esperado" time="0.074" classname="R8AdministracionR8AgregarDiaInhabil"/>
+  </testsuite>
+  <testsuite name="R8 administración / R8 · Consultar días inhábiles" id="a0ee5aab-ce84-40c4-9da9-a94494157f99" timestamp="2026-10-29T03:26:16.166Z" tests="2" failures="0" errors="0" time="0.085">
+    <testcase name="Status 200" time="0.085" classname="R8AdministracionR8ConsultarDiasInhabiles"/>
+    <testcase name="Cuerpo esperado" time="0.085" classname="R8AdministracionR8ConsultarDiasInhabiles"/>
+  </testsuite>
+  <testsuite name="R8 administración / R8 · Consultar parámetros administrativos" id="acafb25b-2899-433c-94a4-9e2855bbcc95" timestamp="2026-10-29T03:26:16.166Z" tests="2" failures="0" errors="0" time="0.068">
+    <testcase name="Status 200" time="0.068" classname="R8AdministracionR8ConsultarParametrosAdministrativos"/>
+    <testcase name="Cuerpo esperado" time="0.068" classname="R8AdministracionR8ConsultarParametrosAdministrativos"/>
+  </testsuite>
+  <testsuite name="R8 administración / R8 · Guardar parámetro administrativo" id="8f1c4c47-e237-43cd-b1f1-b72322dae9f3" timestamp="2026-10-29T03:26:16.166Z" tests="2" failures="0" errors="0" time="0.110">
+    <testcase name="Status 200" time="0.110" classname="R8AdministracionR8GuardarParametroAdministrativo"/>
+    <testcase name="Cuerpo esperado" time="0.110" classname="R8AdministracionR8GuardarParametroAdministrativo"/>
+  </testsuite>
+  <testsuite name="R8 administración / R8 · Crear usuario con dos roles" id="cf96cd67-4539-4244-a979-1387fa28d1bb" timestamp="2026-10-29T03:26:16.166Z" tests="2" failures="0" errors="0" time="0.150">
+    <testcase name="Status 201" time="0.150" classname="R8AdministracionR8CrearUsuarioConDosRoles"/>
+    <testcase name="Cuerpo esperado" time="0.150" classname="R8AdministracionR8CrearUsuarioConDosRoles"/>
+  </testsuite>
+  <testsuite name="R8 administración / R8 · Asignar responsable a un área" id="3f738fc9-cb7d-4b17-b90c-a2e6b7a44b52" timestamp="2026-10-29T03:26:16.166Z" tests="2" failures="0" errors="0" time="0.072">
+    <testcase name="Status 204" time="0.072" classname="R8AdministracionR8AsignarResponsableAUnArea"/>
+    <testcase name="Cuerpo esperado" time="0.072" classname="R8AdministracionR8AsignarResponsableAUnArea"/>
+  </testsuite>
+  <testsuite name="R9 idempotencia / R9 · Primera petición con llave fija → 201" id="c3dae064-74c2-4a42-9a8b-cb24f7441e5b" timestamp="2026-10-29T03:26:16.166Z" tests="2" failures="0" errors="0" time="0.078">
+    <testcase name="Status 201" time="0.078" classname="R9IdempotenciaR9PrimeraPeticionConLlaveFija201"/>
+    <testcase name="Cuerpo esperado" time="0.078" classname="R9IdempotenciaR9PrimeraPeticionConLlaveFija201"/>
+  </testsuite>
+  <testsuite name="R9 idempotencia / R9 · Repetir petición idéntica → mismo cuerpo y replay" id="cf8b20bc-7e1b-4ca2-8fd3-41fb7a21766d" timestamp="2026-10-29T03:26:16.166Z" tests="2" failures="0" errors="0" time="0.071">
+    <testcase name="Status 201" time="0.071" classname="R9IdempotenciaR9RepetirPeticionIdenticaMismoCuerpoYReplay"/>
+    <testcase name="Cuerpo esperado" time="0.071" classname="R9IdempotenciaR9RepetirPeticionIdenticaMismoCuerpoYReplay"/>
+  </testsuite>
+  <testsuite name="R9 idempotencia / R9 · Misma llave con otro cuerpo → 422" id="9928650f-9e90-44d5-bdaa-c4a8aa498302" timestamp="2026-10-29T03:26:16.166Z" tests="2" failures="0" errors="0" time="0.093">
+    <testcase name="Status 422" time="0.093" classname="R9IdempotenciaR9MismaLlaveConOtroCuerpo422"/>
+    <testcase name="Cuerpo esperado" time="0.093" classname="R9IdempotenciaR9MismaLlaveConOtroCuerpo422"/>
+  </testsuite>
+  <testsuite name="R9 idempotencia / R9 · Solo existe una solicitud con el folio" id="1c3fc817-9c9e-4bd3-9d05-a302d6d476cd" timestamp="2026-10-29T03:26:16.166Z" tests="2" failures="0" errors="0" time="0.087">
+    <testcase name="Status 200" time="0.087" classname="R9IdempotenciaR9SoloExisteUnaSolicitudConElFolio"/>
+    <testcase name="Cuerpo esperado" time="0.087" classname="R9IdempotenciaR9SoloExisteUnaSolicitudConElFolio"/>
+  </testsuite>
+  <testsuite name="R10 adjuntos / R10 · Subir identificación pequeña → 201" id="e2717459-7eac-4f7e-a79c-0be677d2f8c7" timestamp="2026-10-29T03:26:16.166Z" tests="2" failures="0" errors="0" time="0.104">
+    <testcase name="Status 201" time="0.104" classname="R10AdjuntosR10SubirIdentificacionPequena201"/>
+    <testcase name="Cuerpo esperado" time="0.104" classname="R10AdjuntosR10SubirIdentificacionPequena201"/>
+  </testsuite>
+  <testsuite name="R10 adjuntos / R10 · Descargar identificación → 200" id="edececc5-9ee5-459a-b0a7-77fed6ebbac5" timestamp="2026-10-29T03:26:16.166Z" tests="2" failures="0" errors="0" time="0.071">
+    <testcase name="Status 200" time="0.071" classname="R10AdjuntosR10DescargarIdentificacion200"/>
+    <testcase name="Cuerpo esperado" time="0.071" classname="R10AdjuntosR10DescargarIdentificacion200"/>
+  </testsuite>
+  <testsuite name="R5 vencimientos / R5 · Tomar solicitud de TI antes de vencer" id="40140ee3-b26e-4fba-9a43-4096fa89c94e" timestamp="2026-10-29T03:26:16.166Z" tests="2" failures="0" errors="0" time="0.093">
+    <testcase name="Status 200" time="0.093" classname="R5VencimientosR5TomarSolicitudDeTiAntesDeVencer"/>
+    <testcase name="Cuerpo esperado" time="0.093" classname="R5VencimientosR5TomarSolicitudDeTiAntesDeVencer"/>
+  </testsuite>
+  <testsuite name="R5 vencimientos / R5 · Vencer registradas y en atención" id="b14a1b56-a2f3-435b-a294-c2e205050ae2" timestamp="2026-10-29T03:26:16.166Z" tests="2" failures="0" errors="0" time="0.124">
+    <testcase name="Status 200" time="0.124" classname="R5VencimientosR5VencerRegistradasYEnAtencion"/>
+    <testcase name="Cuerpo esperado" time="0.124" classname="R5VencimientosR5VencerRegistradasYEnAtencion"/>
+  </testsuite>
+  <testsuite name="R5 vencimientos / R5 · Consultar SIN_RESPUESTA e historial del sistema" id="6ea0a5e4-f5d1-41c5-af4a-fbf3c0b9f558" timestamp="2026-10-29T03:26:16.166Z" tests="2" failures="0" errors="0" time="0.067">
+    <testcase name="Status 200" time="0.067" classname="R5VencimientosR5ConsultarSinRespuestaEHistorialDelSistema"/>
+    <testcase name="Cuerpo esperado" time="0.067" classname="R5VencimientosR5ConsultarSinRespuestaEHistorialDelSistema"/>
+  </testsuite>
+  <testsuite name="R5 vencimientos / R5 · Consultar DEMORADO e historial del sistema" id="4cf7e936-d1d9-4305-9313-d70961f44616" timestamp="2026-10-29T03:26:16.166Z" tests="2" failures="0" errors="0" time="0.066">
+    <testcase name="Status 200" time="0.066" classname="R5VencimientosR5ConsultarDemoradoEHistorialDelSistema"/>
+    <testcase name="Cuerpo esperado" time="0.066" classname="R5VencimientosR5ConsultarDemoradoEHistorialDelSistema"/>
+  </testsuite>
+</testsuites>

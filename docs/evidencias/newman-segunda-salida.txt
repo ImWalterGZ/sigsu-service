@@ -1,0 +1,283 @@
+(node:2336428) [DEP0176] DeprecationWarning: fs.F_OK is deprecated, use fs.constants.F_OK instead
+(Use `node --trace-deprecation ...` to show where the warning was created)
+newman
+
+SIGSU · Reglas R0–R10
+
+❏ Preparación
+↳ Preparación · Crear estudiante único de la corrida
+  POST http://localhost:8080/administracion/usuarios [201 Created, 515B, 146ms]
+  ✓  Status 201
+  ✓  Cuerpo esperado
+
+↳ Preparación · Crear segundo estudiante
+  POST http://localhost:8080/administracion/usuarios [201 Created, 514B, 151ms]
+  ✓  Status 201
+  ✓  Cuerpo esperado
+
+❏ R0 catálogo
+↳ R0 · Listar servicios activos
+  GET http://localhost:8080/catalogo/servicios [200 OK, 2.93kB, 79ms]
+  ✓  Status 200
+  ✓  Cuerpo esperado
+
+↳ R0 · Consultar constancia con esquema
+  GET http://localhost:8080/catalogo/servicios/00000000-0000-0000-0000-000000000021 [200 OK, 956B, 76ms]
+  ✓  Status 200
+  ✓  Cuerpo esperado
+
+❏ R1 registrar
+↳ R1 · Registrar constancia → 201 con folio y venceEn
+  POST http://localhost:8080/solicitudes [201 Created, 766B, 76ms]
+  ✓  Status 201
+  ✓  Cuerpo esperado
+
+↳ R1 · Falta motivo → 422 con campos
+  POST http://localhost:8080/solicitudes [422 Unprocessable Entity (WebDAV) (RFC 4918), 528B, 84ms]
+  ✓  Status 422
+  ✓  Cuerpo esperado
+  ✓  Cuerpo esperado
+
+↳ R1 · Asistentes con tipo erróneo → 422 con campos
+  POST http://localhost:8080/solicitudes [422 Unprocessable Entity (WebDAV) (RFC 4918), 546B, 86ms]
+  ✓  Status 422
+  ✓  Cuerpo esperado
+  ✓  Cuerpo esperado
+
+↳ R1 · Campo extra → 422 con campos
+  POST http://localhost:8080/solicitudes [422 Unprocessable Entity (WebDAV) (RFC 4918), 581B, 90ms]
+  ✓  Status 422
+  ✓  Cuerpo esperado
+  ✓  Cuerpo esperado
+
+❏ R2 duplicado
+↳ R2 · Duplicado abierto → 409 con folio existente
+  POST http://localhost:8080/solicitudes [409 Conflict, 453B, 101ms]
+  ✓  Status 409
+  ✓  Cuerpo esperado
+  ✓  Cuerpo esperado
+
+❏ R3 tomar
+↳ R3 · Otra área no puede tomar → 403
+  POST http://localhost:8080/solicitudes/SIGSU-2026-000010/tomar [403 Forbidden, 438B, 88ms]
+  ✓  Status 403
+  ✓  Cuerpo esperado
+
+↳ R3 · Responsable A toma con versión leída → 200
+  POST http://localhost:8080/solicitudes/SIGSU-2026-000010/tomar [200 OK, 790B, 98ms]
+  ✓  Status 200
+  ✓  Cuerpo esperado
+
+↳ R3 · Responsable B usa la misma versión → 409
+  POST http://localhost:8080/solicitudes/SIGSU-2026-000010/tomar [409 Conflict, 464B, 71ms]
+  ✓  Status 409
+  ✓  Cuerpo esperado
+
+❏ R4 cambiar estado
+↳ R4 · Rechazar sin observación → 422
+  POST http://localhost:8080/solicitudes/SIGSU-2026-000010/estado [422 Unprocessable Entity (WebDAV) (RFC 4918), 461B, 68ms]
+  ✓  Status 422
+  ✓  Cuerpo esperado
+
+↳ R4 · Cancelar tomada → 409
+  POST http://localhost:8080/solicitudes/SIGSU-2026-000010/cancelar [409 Conflict, 442B, 83ms]
+  ✓  Status 409
+  ✓  Cuerpo esperado
+
+↳ R4 · Atender con observación → 200 y cerradaEn
+  POST http://localhost:8080/solicitudes/SIGSU-2026-000010/estado [200 OK, 815B, 96ms]
+  ✓  Status 200
+  ✓  Cuerpo esperado
+
+↳ R4 · Registrar después del cierre → 201
+  POST http://localhost:8080/solicitudes [201 Created, 766B, 76ms]
+  ✓  Status 201
+  ✓  Cuerpo esperado
+
+↳ R4 · Otro estudiante cancela → 403
+  POST http://localhost:8080/solicitudes/SIGSU-2026-000012/cancelar [403 Forbidden, 443B, 66ms]
+  ✓  Status 403
+  ✓  Cuerpo esperado
+
+↳ R4 · Dueño cancela registrada → 200 CANCELADA
+  POST http://localhost:8080/solicitudes/SIGSU-2026-000012/cancelar [200 OK, 782B, 70ms]
+  ✓  Status 200
+  ✓  Cuerpo esperado
+
+❏ R7 consultas
+↳ R7 · Preparar solicitud para bandeja
+  POST http://localhost:8080/solicitudes [201 Created, 766B, 104ms]
+  ✓  Status 201
+  ✓  Cuerpo esperado
+
+↳ R7 · Preparar segunda fecha de vencimiento
+  POST http://localhost:8080/solicitudes [201 Created, 703B, 73ms]
+  ✓  Status 201
+  ✓  Cuerpo esperado
+
+↳ R7 · Preparar otra solicitud del área
+  POST http://localhost:8080/solicitudes [201 Created, 766B, 76ms]
+  ✓  Status 201
+  ✓  Cuerpo esperado
+
+↳ R7 · Bandeja ordenada por venceEn ascendente
+  GET http://localhost:8080/bandeja [200 OK, 2.83kB, 83ms]
+  ✓  Status 200
+  ✓  Cuerpo esperado
+
+↳ R7 · Cancelar preparación del segundo estudiante
+  POST http://localhost:8080/solicitudes/SIGSU-2026-000015/cancelar [200 OK, 782B, 71ms]
+  ✓  Status 200
+  ✓  Cuerpo esperado
+
+↳ R7 · Detalle con historial ordenado
+  GET http://localhost:8080/solicitudes/SIGSU-2026-000010 [200 OK, 1.36kB, 72ms]
+  ✓  Status 200
+  ✓  Cuerpo esperado
+
+↳ R7 · Estudiante pide bandeja → 403
+  GET http://localhost:8080/bandeja [403 Forbidden, 441B, 92ms]
+  ✓  Status 403
+  ✓  Cuerpo esperado
+
+↳ R7 · Sin credenciales → 401
+  GET http://localhost:8080/solicitudes [401 Unauthorized, 487B, 3ms]
+  ✓  Status 401
+  ✓  Cuerpo esperado
+  ✓  Cuerpo esperado
+
+❏ R6 notificaciones
+↳ R6 · Mailpit contiene correo del folio
+  GET http://localhost:8025/api/v1/search?query=SIGSU-2026-000010 [200 OK, 1.15kB, 9ms]
+  ✓  Status 200
+  ✓  Cuerpo esperado
+
+❏ R8 administración
+↳ R8 · Crear servicio con formulario v1
+  POST http://localhost:8080/administracion/servicios [201 Created, 827B, 88ms]
+  ✓  Status 201
+  ✓  Cuerpo esperado
+
+↳ R8 · Registrar con formulario v1
+  POST http://localhost:8080/solicitudes [201 Created, 703B, 74ms]
+  ✓  Status 201
+  ✓  Cuerpo esperado
+
+↳ R8 · Publicar versión 2 del formulario
+  POST http://localhost:8080/administracion/servicios/d96743c6-ca49-4b45-994a-c2cb0156d228/formularios [201 Created, 875B, 86ms]
+  ✓  Status 201
+  ✓  Cuerpo esperado
+
+↳ R8 · Solicitud previa conserva formularioVersion 1
+  GET http://localhost:8080/solicitudes/SIGSU-2026-000016 [200 OK, 885B, 66ms]
+  ✓  Status 200
+  ✓  Cuerpo esperado
+
+↳ R8 · Nueva solicitud usa formularioVersion 2
+  POST http://localhost:8080/solicitudes [201 Created, 744B, 75ms]
+  ✓  Status 201
+  ✓  Cuerpo esperado
+
+↳ R8 · Agregar día inhábil
+  POST http://localhost:8080/administracion/dias-inhabiles [201 Created, 389B, 86ms]
+  ✓  Status 201
+  ✓  Cuerpo esperado
+
+↳ R8 · Consultar días inhábiles
+  GET http://localhost:8080/administracion/dias-inhabiles [200 OK, 570B, 66ms]
+  ✓  Status 200
+  ✓  Cuerpo esperado
+
+↳ R8 · Consultar parámetros administrativos
+  GET http://localhost:8080/administracion/parametros [200 OK, 435B, 81ms]
+  ✓  Status 200
+  ✓  Cuerpo esperado
+
+↳ R8 · Guardar parámetro administrativo
+  PUT http://localhost:8080/administracion/parametros/evidencia.postman [200 OK, 392B, 65ms]
+  ✓  Status 200
+  ✓  Cuerpo esperado
+
+↳ R8 · Crear usuario con dos roles
+  POST http://localhost:8080/administracion/usuarios [201 Created, 532B, 152ms]
+  ✓  Status 201
+  ✓  Cuerpo esperado
+
+↳ R8 · Asignar responsable a un área
+  POST http://localhost:8080/administracion/usuarios/36965b93-0820-4793-a5e4-8c2e71a40fe9/areas [204 No Content, 282B, 68ms]
+  ✓  Status 204
+  ✓  Cuerpo esperado
+
+❏ R9 idempotencia
+↳ R9 · Primera petición con llave fija → 201
+  POST http://localhost:8080/solicitudes [201 Created, 770B, 74ms]
+  ✓  Status 201
+  ✓  Cuerpo esperado
+
+↳ R9 · Repetir petición idéntica → mismo cuerpo y replay
+  POST http://localhost:8080/solicitudes [201 Created, 797B, 65ms]
+  ✓  Status 201
+  ✓  Cuerpo esperado
+
+↳ R9 · Misma llave con otro cuerpo → 422
+  POST http://localhost:8080/solicitudes [422 Unprocessable Entity (WebDAV) (RFC 4918), 487B, 65ms]
+  ✓  Status 422
+  ✓  Cuerpo esperado
+
+↳ R9 · Solo existe una solicitud con el folio
+  GET http://localhost:8080/solicitudes [200 OK, 1.62kB, 66ms]
+  ✓  Status 200
+  ✓  Cuerpo esperado
+
+❏ R10 adjuntos
+↳ R10 · Subir identificación pequeña → 201
+  POST http://localhost:8080/solicitudes/SIGSU-2026-000013/adjuntos (node:2336428) [DEP0044] DeprecationWarning: The `util.isArray` API is deprecated. Please use `Array.isArray()` instead.
+[201 Created, 438B, 101ms]
+  ✓  Status 201
+  ✓  Cuerpo esperado
+
+↳ R10 · Descargar identificación → 200
+  GET http://localhost:8080/solicitudes/SIGSU-2026-000013/adjuntos/0b4207b3-a200-490d-a5ac-0288d1dd03a5 [200 OK, 498B, 82ms]
+  ✓  Status 200
+  ✓  Cuerpo esperado
+
+❏ R5 vencimientos
+↳ R5 · Tomar solicitud de TI antes de vencer
+  POST http://localhost:8080/solicitudes/SIGSU-2026-000014/tomar [200 OK, 727B, 107ms]
+  ✓  Status 200
+  ✓  Cuerpo esperado
+
+↳ R5 · Vencer registradas y en atención
+  POST http://localhost:8080/administracion/vencimientos?ahora=2099-02-01T12:00:00Z [200 OK, 502B, 102ms]
+  ✓  Status 200
+  ✓  Cuerpo esperado
+
+↳ R5 · Consultar SIN_RESPUESTA e historial del sistema
+  GET http://localhost:8080/solicitudes/SIGSU-2026-000013 [200 OK, 1.18kB, 68ms]
+  ✓  Status 200
+  ✓  Cuerpo esperado
+
+↳ R5 · Consultar DEMORADO e historial del sistema
+  GET http://localhost:8080/solicitudes/SIGSU-2026-000014 [200 OK, 1.21kB, 67ms]
+  ✓  Status 200
+  ✓  Cuerpo esperado
+
+┌─────────────────────────┬───────────────────┬──────────────────┐
+│                         │          executed │           failed │
+├─────────────────────────┼───────────────────┼──────────────────┤
+│              iterations │                 1 │                0 │
+├─────────────────────────┼───────────────────┼──────────────────┤
+│                requests │                48 │                0 │
+├─────────────────────────┼───────────────────┼──────────────────┤
+│            test-scripts │                48 │                0 │
+├─────────────────────────┼───────────────────┼──────────────────┤
+│      prerequest-scripts │                 2 │                0 │
+├─────────────────────────┼───────────────────┼──────────────────┤
+│              assertions │               101 │                0 │
+├─────────────────────────┴───────────────────┴──────────────────┤
+│ total run duration: 4.6s                                       │
+├────────────────────────────────────────────────────────────────┤
+│ total data received: 20.8kB (approx)                           │
+├────────────────────────────────────────────────────────────────┤
+│ average response time: 81ms [min: 3ms, max: 152ms, s.d.: 25ms] │
+└────────────────────────────────────────────────────────────────┘
