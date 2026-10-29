@@ -1,3 +1,5 @@
 package mx.utch.sigsu.compartido;
 
-public interface PrincipalUsuario { UsuarioActual usuario(); }
+public interface PrincipalUsuario {
+    UsuarioActual usuario();
+}
