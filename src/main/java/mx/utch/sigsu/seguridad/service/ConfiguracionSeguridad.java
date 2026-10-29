@@ -20,6 +20,18 @@ import tools.jackson.databind.ObjectMapper;
 import java.time.Duration;
 import java.util.List;
 
+@io.swagger.v3.oas.annotations.security.SecurityScheme(
+        name = "autenticacionBasica",
+        type = io.swagger.v3.oas.annotations.enums.SecuritySchemeType.HTTP,
+        scheme = "basic")
+@io.swagger.v3.oas.annotations.OpenAPIDefinition(
+        info =
+                @io.swagger.v3.oas.annotations.info.Info(
+                        title = "SIGSU — solicitudes universitarias",
+                        version = "1"),
+        security =
+                @io.swagger.v3.oas.annotations.security.SecurityRequirement(
+                        name = "autenticacionBasica"))
 @Configuration
 public class ConfiguracionSeguridad {
     @Bean
@@ -108,7 +120,7 @@ public class ConfiguracionSeguridad {
                                                                     new ErrorResponseDto(
                                                                             403,
                                                                             "sin permiso para esta"
-                                                                                + " operación",
+                                                                                    + " operación",
                                                                             null,
                                                                             List.of())));
                                         }))
