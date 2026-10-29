@@ -1,0 +1,16 @@
+Override SIGSU_VENCIMIENTOS_CRON='0 * * * * *'; SQL de Hibernate habilitado solo durante la prueba.
+{"id":"fc51a5c1-af46-4acb-b22c-a4bbecd291f5","folio":"SIGSU-2026-000020","estudianteId":"3af6c6c8-641e-48fd-a805-7efb7d7931c0","servicioId":"00000000-0000-0000-0000-000000000022","formularioVersion":1,"datos":{},"estado":"REGISTRADA","responsableId":null,"venceEn":"2026-10-30T03:26:37.711477731Z","creadaEn":"2026-10-29T03:26:37.711477731Z","cerradaEn":null,"version":0}
+UPDATE solicitud SET vence_en=now()-interval '1 day' WHERE folio='SIGSU-2026-000020';
+UPDATE 1
+Transición programada observada tras 23 segundos; sin llamar /administracion/vencimientos.
+       folio       |    estado     |  anterior  |     nuevo     |    autor     |  observacion  |             fecha             
+-------------------+---------------+------------+---------------+--------------+---------------+-------------------------------
+ SIGSU-2026-000020 | SIN_RESPUESTA |            | REGISTRADA    | Lucía Torres | registro      | 2026-10-29 03:26:37.711478+00
+ SIGSU-2026-000020 | SIN_RESPUESTA | REGISTRADA | SIN_RESPUESTA | sistema      | plazo vencido | 2026-10-29 03:27:00.001944+00
+(2 rows)
+
+
+Líneas del log SQL emitidas por la ejecución programada:
+app-1  | Hibernate: insert into historial (anterior,autor_id,fecha,nuevo,observacion,solicitud_id,id) values (?,?,?,?,?,?,?)
+app-1  | Hibernate: update solicitud set cerrada_en=?,creada_en=?,datos=?,estado=?,estudiante_id=?,folio=?,formulario_version=?,responsable_id=?,servicio_id=?,vence_en=?,version=? where id=? and version=?
+app-1  | Hibernate: insert into historial (anterior,autor_id,fecha,nuevo,observacion,solicitud_id,id) values (?,?,?,?,?,?,?)

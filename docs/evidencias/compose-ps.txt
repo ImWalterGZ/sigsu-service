@@ -1,0 +1,11 @@
+NAME                       IMAGE                                        COMMAND          SERVICE    CREATED              STATUS              PORTS
+sigsu-service-app-1        docker.io/library/sigsu-service-app:latest   ""               app        13 seconds ago       Up 12 seconds       0.0.0.0:8080->8080/tcp
+sigsu-service-mailpit-1    docker.io/axllent/mailpit:latest             ""               mailpit    About a minute ago   Up About a minute   1025/tcp, 1110/tcp, 0.0.0.0:8025->8025/tcp
+sigsu-service-postgres-1   docker.io/library/postgres:16                "postgres"       postgres   About a minute ago   Up About a minute   0.0.0.0:5432->5432/tcp
+sigsu-service-redis-1      docker.io/library/redis:7                    "redis-server"   redis      About a minute ago   Up About a minute   0.0.0.0:6379->6379/tcp
+NAMES                     STATUS
+sigsu-service-mailpit-1   Up About a minute (healthy)
+sigsu-service-redis-1     Up About a minute (healthy)
+sigsu-service-postgres-1  Up About a minute (healthy)
+sigsu-service-app-1       Up 12 seconds (healthy)
+{"groups":["liveness","readiness"],"status":"UP"}

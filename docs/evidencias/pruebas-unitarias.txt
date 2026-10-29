@@ -1,0 +1,40 @@
+[INFO] Tests run: 3, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.260 s -- in mx.utch.sigsu.catalogo.model.FormularioServicioTest
+[INFO] Tests run: 2, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.009 s -- in mx.utch.sigsu.catalogo.model.ServicioTest
+[INFO] Tests run: 6, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 1.236 s -- in mx.utch.sigsu.seguridad.service.FiltroIdempotenciaTest
+[INFO] Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.012 s -- in mx.utch.sigsu.seguridad.service.PeticionRepetibleTest
+[INFO] Tests run: 4, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.007 s -- in mx.utch.sigsu.solicitudes.model.SolicitudTest
+[INFO] Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.189 s -- in mx.utch.sigsu.solicitudes.service.RegistrarSolicitudTest
+[INFO] Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.027 s -- in mx.utch.sigsu.solicitudes.service.TomarSolicitudTest
+[INFO] Tests run: 18, Failures: 0, Errors: 0, Skipped: 0
+[INFO] BUILD SUCCESS
+[INFO] Total time:  4.433 s
+
+Informes Surefire:
+-------------------------------------------------------------------------------
+Test set: mx.utch.sigsu.catalogo.model.FormularioServicioTest
+-------------------------------------------------------------------------------
+Tests run: 3, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.260 s -- in mx.utch.sigsu.catalogo.model.FormularioServicioTest
+-------------------------------------------------------------------------------
+Test set: mx.utch.sigsu.catalogo.model.ServicioTest
+-------------------------------------------------------------------------------
+Tests run: 2, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.009 s -- in mx.utch.sigsu.catalogo.model.ServicioTest
+-------------------------------------------------------------------------------
+Test set: mx.utch.sigsu.seguridad.service.FiltroIdempotenciaTest
+-------------------------------------------------------------------------------
+Tests run: 6, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 1.236 s -- in mx.utch.sigsu.seguridad.service.FiltroIdempotenciaTest
+-------------------------------------------------------------------------------
+Test set: mx.utch.sigsu.seguridad.service.PeticionRepetibleTest
+-------------------------------------------------------------------------------
+Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.012 s -- in mx.utch.sigsu.seguridad.service.PeticionRepetibleTest
+-------------------------------------------------------------------------------
+Test set: mx.utch.sigsu.solicitudes.model.SolicitudTest
+-------------------------------------------------------------------------------
+Tests run: 4, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.007 s -- in mx.utch.sigsu.solicitudes.model.SolicitudTest
+-------------------------------------------------------------------------------
+Test set: mx.utch.sigsu.solicitudes.service.RegistrarSolicitudTest
+-------------------------------------------------------------------------------
+Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.189 s -- in mx.utch.sigsu.solicitudes.service.RegistrarSolicitudTest
+-------------------------------------------------------------------------------
+Test set: mx.utch.sigsu.solicitudes.service.TomarSolicitudTest
+-------------------------------------------------------------------------------
+Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.027 s -- in mx.utch.sigsu.solicitudes.service.TomarSolicitudTest

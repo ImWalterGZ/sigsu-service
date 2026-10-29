@@ -1,0 +1,5 @@
+Dos POST /solicitudes/SIGSU-2026-000019/tomar concurrentes, ambos con version=0.
+Responsable 1: status 409
+{"status":409,"mensaje":"otro responsable la tomó primero o el estado no permite tomar","folioExistente":null,"errores":[]}
+Responsable 2: status 200
+{"id":"164a6852-f125-499e-ac07-d8baf7003e0a","folio":"SIGSU-2026-000019","estudianteId":"3af6c6c8-641e-48fd-a805-7efb7d7931c0","servicioId":"00000000-0000-0000-0000-000000000021","formularioVersion":1,"datos":{"motivo":"Evidencia de concurrencia","conCalificaciones":true},"estado":"EN_ATENCION","responsableId":"00000000-0000-0000-0000-000000000104","venceEn":"2026-11-04T03:26:28.584125Z","creadaEn":"2026-10-29T03:26:28.584125Z","cerradaEn":null,"version":1}

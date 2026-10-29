@@ -1,0 +1,35 @@
+psql -c "\d solicitud"
+                            Table "public.solicitud"
+       Column       |           Type           | Collation | Nullable | Default 
+--------------------+--------------------------+-----------+----------+---------
+ id                 | uuid                     |           | not null | 
+ folio              | character varying(255)   |           | not null | 
+ estudiante_id      | uuid                     |           | not null | 
+ servicio_id        | uuid                     |           | not null | 
+ formulario_version | integer                  |           | not null | 
+ datos              | jsonb                    |           | not null | 
+ estado             | character varying(30)    |           | not null | 
+ responsable_id     | uuid                     |           |          | 
+ vence_en           | timestamp with time zone |           | not null | 
+ creada_en          | timestamp with time zone |           | not null | 
+ cerrada_en         | timestamp with time zone |           |          | 
+ version            | integer                  |           | not null | 
+Indexes:
+    "solicitud_pkey" PRIMARY KEY, btree (id)
+    "solicitud_abierta" UNIQUE, btree (estudiante_id, servicio_id) WHERE estado::text = ANY (ARRAY['REGISTRADA'::character varying, 'SIN_RESPUESTA'::character varying, 'EN_ATENCION'::character varying, 'DEMORADO'::character varying]::text[])
+    "solicitud_folio_key" UNIQUE CONSTRAINT, btree (folio)
+Check constraints:
+    "solicitud_estado_check" CHECK (estado::text = ANY (ARRAY['REGISTRADA'::character varying, 'SIN_RESPUESTA'::character varying, 'EN_ATENCION'::character varying, 'DEMORADO'::character varying, 'ATENDIDA'::character varying, 'RECHAZADA'::character varying, 'CANCELADA'::character varying]::text[]))
+Foreign-key constraints:
+    "solicitud_estudiante_id_fkey" FOREIGN KEY (estudiante_id) REFERENCES usuario(id)
+    "solicitud_responsable_id_fkey" FOREIGN KEY (responsable_id) REFERENCES usuario(id)
+    "solicitud_servicio_id_formulario_version_fkey" FOREIGN KEY (servicio_id, formulario_version) REFERENCES formulario_servicio(servicio_id, version)
+Referenced by:
+    TABLE "adjunto" CONSTRAINT "adjunto_solicitud_id_fkey" FOREIGN KEY (solicitud_id) REFERENCES solicitud(id)
+    TABLE "historial" CONSTRAINT "historial_solicitud_id_fkey" FOREIGN KEY (solicitud_id) REFERENCES solicitud(id)
+
+
+psql -c "INSERT INTO solicitud SELECT gen_random_uuid(), 'DUP-c8157719-fdfe-4faf-a491-e23a3213795f', estudiante_id, servicio_id, formulario_version, datos, estado, responsable_id, vence_en, creada_en, cerrada_en, version FROM solicitud WHERE folio='SIGSU-2026-000019'"
+ERROR:  duplicate key value violates unique constraint "solicitud_abierta"
+DETAIL:  Key (estudiante_id, servicio_id)=(3af6c6c8-641e-48fd-a805-7efb7d7931c0, 00000000-0000-0000-0000-000000000021) already exists.
+Error: executing /home/gzzz/.docker/cli-plugins/docker-compose exec -T postgres psql -X -v ON_ERROR_STOP=1 -U sigsu -d sigsu -c INSERT INTO solicitud SELECT gen_random_uuid(), 'DUP-c8157719-fdfe-4faf-a491-e23a3213795f', estudiante_id, servicio_id, formulario_version, datos, estado, responsable_id, vence_en, creada_en, cerrada_en, version FROM solicitud WHERE folio='SIGSU-2026-000019': exit status 1

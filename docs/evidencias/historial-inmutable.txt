@@ -1,0 +1,20 @@
+
+psql -c "UPDATE historial SET observacion='alterado'"
+ERROR:  historial es de solo inserción
+CONTEXT:  PL/pgSQL function rechazar_historial() line 1 at RAISE
+Error: executing /home/gzzz/.docker/cli-plugins/docker-compose exec -T postgres psql -X -v ON_ERROR_STOP=1 -U sigsu -d sigsu -c UPDATE historial SET observacion='alterado': exit status 1
+
+psql -c "DELETE FROM historial"
+ERROR:  historial es de solo inserción
+CONTEXT:  PL/pgSQL function rechazar_historial() line 1 at RAISE
+Error: executing /home/gzzz/.docker/cli-plugins/docker-compose exec -T postgres psql -X -v ON_ERROR_STOP=1 -U sigsu -d sigsu -c DELETE FROM historial: exit status 1
+
+psql -c "TRUNCATE historial"
+ERROR:  historial es de solo inserción
+CONTEXT:  PL/pgSQL function rechazar_historial() line 1 at RAISE
+Error: executing /home/gzzz/.docker/cli-plugins/docker-compose exec -T postgres psql -X -v ON_ERROR_STOP=1 -U sigsu -d sigsu -c TRUNCATE historial: exit status 1
+
+psql -c "UPDATE formulario_servicio SET version=version"
+ERROR:  formulario_servicio es de solo inserción
+CONTEXT:  PL/pgSQL function rechazar_formulario() line 1 at RAISE
+Error: executing /home/gzzz/.docker/cli-plugins/docker-compose exec -T postgres psql -X -v ON_ERROR_STOP=1 -U sigsu -d sigsu -c UPDATE formulario_servicio SET version=version: exit status 1

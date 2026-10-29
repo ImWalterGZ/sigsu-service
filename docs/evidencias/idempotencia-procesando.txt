@@ -1,0 +1,35 @@
+redis-cli SET sigsu:idem:evidencia.c8157719-fdfe-4faf-a491-e23a3213795f@alumnos.utch.edu.mx:procesando-c8157719-fdfe-4faf-a491-e23a3213795f <RespuestaGuardada PROCESANDO> EX 120
+OK
+POST /solicitudes Idempotency-Key: procesando-c8157719-fdfe-4faf-a491-e23a3213795f
+{"status":409,"mensaje":"Petición con esta Idempotency-Key en proceso","folioExistente":null,"errores":[]}
+Status: 409
+
+Carrera real: dos curl concurrentes, misma llave y cuerpo.
+curl 1: status 201
+HTTP/1.1 201 
+X-Content-Type-Options: nosniff
+X-XSS-Protection: 0
+Cache-Control: no-cache, no-store, max-age=0, must-revalidate
+Pragma: no-cache
+Expires: 0
+X-Frame-Options: DENY
+Content-Type: application/json
+Content-Length: 432
+Date: Thu, 29 Oct 2026 03:26:28 GMT
+
+{"id":"164a6852-f125-499e-ac07-d8baf7003e0a","folio":"SIGSU-2026-000019","estudianteId":"3af6c6c8-641e-48fd-a805-7efb7d7931c0","servicioId":"00000000-0000-0000-0000-000000000021","formularioVersion":1,"datos":{"motivo":"Evidencia de concurrencia","conCalificaciones":true},"estado":"REGISTRADA","responsableId":null,"venceEn":"2026-11-04T03:26:28.584124723Z","creadaEn":"2026-10-29T03:26:28.584124723Z","cerradaEn":null,"version":0}
+curl 2: status 201
+HTTP/1.1 201 
+Idempotent-Replayed: true
+X-Content-Type-Options: nosniff
+X-XSS-Protection: 0
+Cache-Control: no-cache, no-store, max-age=0, must-revalidate
+Pragma: no-cache
+Expires: 0
+X-Frame-Options: DENY
+Content-Type: application/json
+Content-Length: 432
+Date: Thu, 29 Oct 2026 03:26:28 GMT
+
+{"id":"164a6852-f125-499e-ac07-d8baf7003e0a","folio":"SIGSU-2026-000019","estudianteId":"3af6c6c8-641e-48fd-a805-7efb7d7931c0","servicioId":"00000000-0000-0000-0000-000000000021","formularioVersion":1,"datos":{"motivo":"Evidencia de concurrencia","conCalificaciones":true},"estado":"REGISTRADA","responsableId":null,"venceEn":"2026-11-04T03:26:28.584124723Z","creadaEn":"2026-10-29T03:26:28.584124723Z","cerradaEn":null,"version":0}
+Carrera válida: una creación; la otra petición obtuvo conflicto en proceso o reproducción.
