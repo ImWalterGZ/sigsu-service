@@ -1,0 +1,55 @@
+services:
+  postgres:
+    image: docker.io/library/postgres:16
+    environment:
+      POSTGRES_DB: sigsu
+      POSTGRES_USER: sigsu
+      POSTGRES_PASSWORD: ${SIGSU_BD_CONTRASENA:-sigsu}
+    ports: ["${SIGSU_PUERTO_POSTGRES:-5432}:5432"]
+    volumes: ["datos-postgres:/var/lib/postgresql/data"]
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U sigsu -d sigsu"]
+      interval: 5s
+      timeout: 3s
+      retries: 20
+  redis:
+    image: docker.io/library/redis:7
+    ports: ["${SIGSU_PUERTO_REDIS:-6379}:6379"]
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 5s
+      timeout: 3s
+      retries: 20
+  mailpit:
+    image: docker.io/axllent/mailpit:latest
+    ports: ["${SIGSU_PUERTO_MAILPIT:-8025}:8025"]
+    healthcheck:
+      test: ["CMD", "/mailpit", "readyz"]
+      interval: 5s
+      timeout: 3s
+      retries: 20
+  app:
+    build: .
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/sigsu
+      SPRING_DATASOURCE_USERNAME: sigsu
+      SPRING_DATASOURCE_PASSWORD: ${SIGSU_BD_CONTRASENA:-sigsu}
+      SPRING_DATA_REDIS_HOST: redis
+      SPRING_MAIL_HOST: mailpit
+      SIGSU_ADJUNTOS_RUTA: /var/sigsu/adjuntos
+      SIGSU_VENCIMIENTOS_CRON: ${SIGSU_VENCIMIENTOS_CRON:-0 */15 * * * *}
+    ports: ["${SIGSU_PUERTO_APP:-8080}:8080"]
+    volumes: ["datos-adjuntos:/var/sigsu/adjuntos"]
+    depends_on:
+      postgres: {condition: service_healthy}
+      redis: {condition: service_healthy}
+      mailpit: {condition: service_healthy}
+    healthcheck:
+      test: ["CMD-SHELL", "curl -fsS http://localhost:8080/actuator/health || exit 1"]
+      interval: 10s
+      timeout: 5s
+      retries: 30
+      start_period: 40s
+volumes:
+  datos-postgres:
+  datos-adjuntos:
