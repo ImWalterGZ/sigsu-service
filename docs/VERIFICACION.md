@@ -1192,3 +1192,7 @@ Se comprobó la existencia de los 38 nombres de clase/interfaz/enum exigidos y q
 ## Imagen final
 
 `podman compose up -d --build` terminó con código 0 después de fijar JUnit 5 y configurar Swagger Basic. Comprobación posterior: `/actuator/health` respondió 200 y `UP`; `/v3/api-docs` respondió 200 con 19 rutas y el esquema `autenticacionBasica` de tipo HTTP Basic.
+
+## Verificación complementaria con Postman y evidencias directas
+
+La colección de `postman/` pasó dos veces consecutivas: 48 requests y 101 assertions por corrida, sin fallos. La primera ejecución usó volúmenes nuevos y la segunda no reinició ningún servicio. `docs/evidencias/README.md` enumera los reportes JSON/JUnit/CLI, las pruebas directas de PostgreSQL y Redis, las carreras reales con curl, los correos y el vencimiento por scheduler. Las 18 pruebas unitarias siguen pasando. El esquema antes/después de reformatear V1 es idéntico y su diff está vacío. No se corrigió ningún bug de la aplicación. La app queda healthy con el cron predeterminado.

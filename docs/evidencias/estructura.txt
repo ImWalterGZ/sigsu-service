@@ -1,0 +1,291 @@
+Anclas obtenidas con grep -nF después del último commit de código.
+La prueba HTTP de cada fila es conductual; estas anclas verifican la estructura interna.
+
+src/main/java/mx/utch/sigsu/seguridad/model/Rol.java:3: public enum Rol
+src/main/java/mx/utch/sigsu/seguridad/model/Rol.java:4: ESTUDIANTE
+src/main/java/mx/utch/sigsu/seguridad/model/Rol.java:5: RESPONSABLE
+src/main/java/mx/utch/sigsu/seguridad/model/Rol.java:6: ADMINISTRADOR
+src/main/java/mx/utch/sigsu/seguridad/model/Usuario.java:10: public class Usuario
+src/main/java/mx/utch/sigsu/seguridad/model/Usuario.java:11:  id;
+src/main/java/mx/utch/sigsu/seguridad/model/Usuario.java:12:  correo;
+src/main/java/mx/utch/sigsu/seguridad/model/Usuario.java:13:  nombre;
+src/main/java/mx/utch/sigsu/seguridad/model/Usuario.java:21:  roles 
+src/main/java/mx/utch/sigsu/seguridad/model/Usuario.java:15:  activo;
+src/main/java/mx/utch/sigsu/seguridad/model/ResponsableArea.java:10: public class ResponsableArea
+src/main/java/mx/utch/sigsu/seguridad/model/ResponsableArea.java:14:  asignadaEn;
+src/main/java/mx/utch/sigsu/catalogo/model/Area.java:10: public class Area
+src/main/java/mx/utch/sigsu/catalogo/model/Area.java:11:  id;
+src/main/java/mx/utch/sigsu/catalogo/model/Area.java:12:  nombre;
+src/main/java/mx/utch/sigsu/catalogo/model/Area.java:13:  correo;
+src/main/java/mx/utch/sigsu/catalogo/model/Categoria.java:10: public class Categoria
+src/main/java/mx/utch/sigsu/catalogo/model/Categoria.java:11:  id;
+src/main/java/mx/utch/sigsu/catalogo/model/Categoria.java:12:  nombre;
+src/main/java/mx/utch/sigsu/catalogo/model/Servicio.java:10: public class Servicio
+src/main/java/mx/utch/sigsu/catalogo/model/Servicio.java:11:  id;
+src/main/java/mx/utch/sigsu/catalogo/model/Servicio.java:12:  nombre;
+src/main/java/mx/utch/sigsu/catalogo/model/Servicio.java:15:  descripcion;
+src/main/java/mx/utch/sigsu/catalogo/model/Servicio.java:19:  plazoDiasHabiles;
+src/main/java/mx/utch/sigsu/catalogo/model/Servicio.java:20:  versionVigente;
+src/main/java/mx/utch/sigsu/catalogo/model/Servicio.java:21:  activo;
+src/main/java/mx/utch/sigsu/catalogo/model/Servicio.java:27: formularioVigente(
+src/main/java/mx/utch/sigsu/catalogo/model/Servicio.java:31: calcularVencimiento(
+src/main/java/mx/utch/sigsu/catalogo/model/FormularioServicio.java:14: public class FormularioServicio
+src/main/java/mx/utch/sigsu/catalogo/model/FormularioServicio.java:16:  version;
+src/main/java/mx/utch/sigsu/catalogo/model/FormularioServicio.java:19:  esquema;
+src/main/java/mx/utch/sigsu/catalogo/model/FormularioServicio.java:21:  creadoEn;
+src/main/java/mx/utch/sigsu/catalogo/model/FormularioServicio.java:25: validar(
+src/main/java/mx/utch/sigsu/catalogo/model/DiaInhabil.java:10: public class DiaInhabil
+src/main/java/mx/utch/sigsu/catalogo/model/DiaInhabil.java:11:  fecha;
+src/main/java/mx/utch/sigsu/catalogo/model/DiaInhabil.java:12:  motivo;
+src/main/java/mx/utch/sigsu/solicitudes/model/Estado.java:5: public enum Estado
+src/main/java/mx/utch/sigsu/solicitudes/model/Estado.java:6: REGISTRADA
+src/main/java/mx/utch/sigsu/solicitudes/model/Estado.java:7: SIN_RESPUESTA
+src/main/java/mx/utch/sigsu/solicitudes/model/Estado.java:8: EN_ATENCION
+src/main/java/mx/utch/sigsu/solicitudes/model/Estado.java:9: DEMORADO
+src/main/java/mx/utch/sigsu/solicitudes/model/Estado.java:10: ATENDIDA
+src/main/java/mx/utch/sigsu/solicitudes/model/Estado.java:11: RECHAZADA
+src/main/java/mx/utch/sigsu/solicitudes/model/Estado.java:12: CANCELADA
+src/main/java/mx/utch/sigsu/solicitudes/model/Solicitud.java:13: public class Solicitud
+src/main/java/mx/utch/sigsu/solicitudes/model/Solicitud.java:14:  id;
+src/main/java/mx/utch/sigsu/solicitudes/model/Solicitud.java:15:  folio;
+src/main/java/mx/utch/sigsu/solicitudes/model/Solicitud.java:21:  datos;
+src/main/java/mx/utch/sigsu/solicitudes/model/Solicitud.java:24:  estado;
+src/main/java/mx/utch/sigsu/solicitudes/model/Solicitud.java:27:  venceEn;
+src/main/java/mx/utch/sigsu/solicitudes/model/Solicitud.java:28:  creadaEn;
+src/main/java/mx/utch/sigsu/solicitudes/model/Solicitud.java:29:  cerradaEn;
+src/main/java/mx/utch/sigsu/solicitudes/model/Solicitud.java:30:  version;
+src/main/java/mx/utch/sigsu/solicitudes/model/Solicitud.java:34: tomar(
+src/main/java/mx/utch/sigsu/solicitudes/model/Solicitud.java:41: cambiarEstado(
+src/main/java/mx/utch/sigsu/solicitudes/model/Solicitud.java:52: cancelar(
+src/main/java/mx/utch/sigsu/solicitudes/model/Solicitud.java:59: vencer(
+src/main/java/mx/utch/sigsu/solicitudes/model/Historial.java:10: public class Historial
+src/main/java/mx/utch/sigsu/solicitudes/model/Historial.java:16:  anterior;
+src/main/java/mx/utch/sigsu/solicitudes/model/Historial.java:19:  nuevo;
+src/main/java/mx/utch/sigsu/solicitudes/model/Historial.java:22:  observacion;
+src/main/java/mx/utch/sigsu/solicitudes/model/Historial.java:24:  fecha;
+src/main/java/mx/utch/sigsu/solicitudes/model/Adjunto.java:10: public class Adjunto
+src/main/java/mx/utch/sigsu/solicitudes/model/Adjunto.java:13:  nombre;
+src/main/java/mx/utch/sigsu/solicitudes/model/Adjunto.java:14:  ruta;
+src/main/java/mx/utch/sigsu/solicitudes/model/Adjunto.java:15:  tipo;
+src/main/java/mx/utch/sigsu/solicitudes/model/Adjunto.java:16:  bytes;
+src/main/java/mx/utch/sigsu/administracion/model/Parametro.java:10: public class Parametro
+src/main/java/mx/utch/sigsu/administracion/model/Parametro.java:11:  clave;
+src/main/java/mx/utch/sigsu/administracion/model/Parametro.java:12:  valor;
+src/main/resources/db/migration/V1__esquema_inicial.sql:5: correo varchar(255) NOT NULL UNIQUE
+src/main/resources/db/migration/V1__esquema_inicial.sql:31: UNIQUE(usuario_id,area_id)
+src/main/resources/db/migration/V1__esquema_inicial.sql:49: PRIMARY KEY(servicio_id,version)
+src/main/resources/db/migration/V1__esquema_inicial.sql:108: CREATE TRIGGER formulario_inmutable
+src/main/resources/db/migration/V1__esquema_inicial.sql:105: CREATE TRIGGER historial_inmutable
+src/main/resources/db/migration/V1__esquema_inicial.sql:106: CREATE TRIGGER historial_no_truncar
+src/main/resources/db/migration/V1__esquema_inicial.sql:63: folio varchar(255) NOT NULL UNIQUE
+src/main/resources/db/migration/V1__esquema_inicial.sql:78: CREATE UNIQUE INDEX solicitud_abierta
+src/main/resources/db/migration/V1__esquema_inicial.sql:26: CREATE TABLE responsable_area
+src/main/resources/db/migration/V1__esquema_inicial.sql:28: usuario_id uuid NOT NULL REFERENCES usuario
+src/main/resources/db/migration/V1__esquema_inicial.sql:29: area_id uuid NOT NULL REFERENCES area
+src/main/resources/db/migration/V1__esquema_inicial.sql:34: CREATE TABLE servicio
+src/main/resources/db/migration/V1__esquema_inicial.sql:39: categoria_id uuid NOT NULL REFERENCES categoria
+src/main/resources/db/migration/V1__esquema_inicial.sql:45: servicio_id uuid REFERENCES servicio
+src/main/resources/db/migration/V1__esquema_inicial.sql:52: ALTER TABLE servicio ADD CONSTRAINT formulario_vigente
+src/main/resources/db/migration/V1__esquema_inicial.sql:64: estudiante_id uuid NOT NULL REFERENCES usuario
+src/main/resources/db/migration/V1__esquema_inicial.sql:69: responsable_id uuid REFERENCES usuario
+src/main/resources/db/migration/V1__esquema_inicial.sql:82: autor_id uuid REFERENCES usuario
+src/main/resources/db/migration/V1__esquema_inicial.sql:79: CREATE TABLE historial
+src/main/resources/db/migration/V1__esquema_inicial.sql:88: CREATE TABLE adjunto
+src/main/resources/db/migration/V1__esquema_inicial.sql:74: FOREIGN KEY(servicio_id,formulario_version)
+src/main/java/mx/utch/sigsu/catalogo/model/Servicio.java:38: !diasInhabiles.contains
+src/main/java/mx/utch/sigsu/seguridad/model/Usuario.java:21: Set<Rol>
+src/main/java/mx/utch/sigsu/solicitudes/model/Solicitud.java:24: public Estado estado
+src/main/java/mx/utch/sigsu/solicitudes/repository/SolicitudRepositorio.java:25: version=version+1 WHERE id=:id AND version=:version
+src/main/java/mx/utch/sigsu/seguridad/service/ConfiguracionSeguridad.java:57: SessionCreationPolicy.STATELESS
+src/main/java/mx/utch/sigsu/seguridad/service/IUsuarios.java:1: package 
+src/main/java/mx/utch/sigsu/seguridad/service/Autenticar.java:1: package 
+src/main/java/mx/utch/sigsu/seguridad/model/Usuario.java:1: package 
+src/main/java/mx/utch/sigsu/seguridad/model/Rol.java:1: package 
+src/main/java/mx/utch/sigsu/seguridad/model/ResponsableArea.java:1: package 
+src/main/java/mx/utch/sigsu/seguridad/repository/UsuarioRepositorio.java:1: package 
+src/main/java/mx/utch/sigsu/administracion/controller/AdminController.java:1: package 
+src/main/java/mx/utch/sigsu/administracion/service/GestionarUsuarios.java:1: package 
+src/main/java/mx/utch/sigsu/administracion/service/GestionarParametros.java:1: package 
+src/main/java/mx/utch/sigsu/administracion/model/Parametro.java:1: package 
+src/main/java/mx/utch/sigsu/administracion/repository/ParametroRepositorio.java:1: package 
+src/main/java/mx/utch/sigsu/catalogo/controller/CatalogoController.java:1: package 
+src/main/java/mx/utch/sigsu/catalogo/service/ICatalogo.java:1: package 
+src/main/java/mx/utch/sigsu/catalogo/service/IGestionCatalogo.java:1: package 
+src/main/java/mx/utch/sigsu/catalogo/model/Area.java:1: package 
+src/main/java/mx/utch/sigsu/catalogo/model/Categoria.java:1: package 
+src/main/java/mx/utch/sigsu/catalogo/model/Servicio.java:1: package 
+src/main/java/mx/utch/sigsu/catalogo/model/FormularioServicio.java:1: package 
+src/main/java/mx/utch/sigsu/catalogo/model/DiaInhabil.java:1: package 
+src/main/java/mx/utch/sigsu/catalogo/repository/ServicioRepositorio.java:1: package 
+src/main/java/mx/utch/sigsu/solicitudes/controller/SolicitudController.java:1: package 
+src/main/java/mx/utch/sigsu/solicitudes/controller/BandejaController.java:1: package 
+src/main/java/mx/utch/sigsu/solicitudes/service/RegistrarSolicitud.java:1: package 
+src/main/java/mx/utch/sigsu/solicitudes/service/TomarSolicitud.java:1: package 
+src/main/java/mx/utch/sigsu/solicitudes/service/CambiarEstado.java:1: package 
+src/main/java/mx/utch/sigsu/solicitudes/service/VencerSolicitudes.java:1: package 
+src/main/java/mx/utch/sigsu/solicitudes/model/Solicitud.java:1: package 
+src/main/java/mx/utch/sigsu/solicitudes/model/Historial.java:1: package 
+src/main/java/mx/utch/sigsu/solicitudes/model/Adjunto.java:1: package 
+src/main/java/mx/utch/sigsu/solicitudes/model/Estado.java:1: package 
+src/main/java/mx/utch/sigsu/solicitudes/repository/SolicitudRepositorio.java:1: package 
+src/main/java/mx/utch/sigsu/solicitudes/repository/AlmacenDeAdjuntos.java:1: package 
+src/main/java/mx/utch/sigsu/notificaciones/service/AvisarCambio.java:1: package 
+src/main/java/mx/utch/sigsu/notificaciones/model/Aviso.java:1: package 
+src/main/java/mx/utch/sigsu/notificaciones/repository/CorreoSmtp.java:1: package 
+src/main/java/mx/utch/sigsu/compartido/UsuarioActual.java:1: package 
+src/main/java/mx/utch/sigsu/compartido/CambioDeSolicitud.java:1: package 
+src/main/java/mx/utch/sigsu/compartido/Folio.java:1: package 
+src/main/java/mx/utch/sigsu/administracion/service/GestionarUsuarios.java:4: IUsuarios
+src/main/java/mx/utch/sigsu/administracion/controller/AdminController.java:8: IGestionCatalogo
+src/main/java/mx/utch/sigsu/solicitudes/service/RegistrarSolicitud.java:3: ICatalogo
+src/main/java/mx/utch/sigsu/solicitudes/service/RegistrarCambio.java:5: IUsuarios
+src/main/java/mx/utch/sigsu/solicitudes/controller/SolicitudController.java:7: import mx.utch.sigsu.solicitudes.service
+src/main/java/mx/utch/sigsu/notificaciones/service/AvisarCambio.java:13: @Service
+src/main/java/mx/utch/sigsu/seguridad/service/ConfiguracionSeguridad.java:74: .hasRole("RESPONSABLE")
+src/main/java/mx/utch/sigsu/administracion/controller/AdminController.java:18: public class
+src/main/java/mx/utch/sigsu/catalogo/service/Catalogo.java:17: public class
+src/main/java/mx/utch/sigsu/solicitudes/service/RegistrarSolicitud.java:17: public class
+src/main/java/mx/utch/sigsu/solicitudes/controller/BandejaController.java:15: public class
+src/main/java/mx/utch/sigsu/solicitudes/service/TomarSolicitud.java:15: public class
+src/main/java/mx/utch/sigsu/solicitudes/service/RegistrarCambio.java:17: public class
+src/main/java/mx/utch/sigsu/solicitudes/service/GestionarAdjuntos.java:18: public class
+src/main/java/mx/utch/sigsu/solicitudes/service/VencerSolicitudes.java:16: public class
+src/main/java/mx/utch/sigsu/notificaciones/service/AvisarCambio.java:22: TransactionPhase.AFTER_COMMIT
+src/main/java/mx/utch/sigsu/seguridad/service/IUsuarios.java:7: public interface
+src/main/java/mx/utch/sigsu/catalogo/service/IGestionCatalogo.java:7: public interface
+src/main/java/mx/utch/sigsu/catalogo/service/ICatalogo.java:9: public interface
+src/main/java/mx/utch/sigsu/compartido/UsuarioActual.java:7: public record
+src/main/java/mx/utch/sigsu/compartido/CambioDeSolicitud.java:5: public record
+Dockerfile:12: java
+compose.yaml:34: SPRING_DATASOURCE_URL
+src/main/java/mx/utch/sigsu/solicitudes/service/RegistrarSolicitud.java:3: import mx.utch.sigsu.catalogo.service.ICatalogo
+compose.yaml:41: SIGSU_PUERTO_APP
+compose.yaml:38: SPRING_MAIL_HOST
+compose.yaml:3: postgres:16
+compose.yaml:42: datos-adjuntos:/var/sigsu/adjuntos
+src/main/java/mx/utch/sigsu/solicitudes/service/VencerSolicitudes.java:30: @Scheduled
+src/main/java/mx/utch/sigsu/solicitudes/service/TomarSolicitud.java:32: consultas.exigirArea
+src/main/resources/db/migration/V2__catalogo_y_usuarios_de_prueba.sql:1: INSERT INTO area
+src/main/java/mx/utch/sigsu/solicitudes/controller/SolicitudController.java:39: @PostMapping
+src/main/java/mx/utch/sigsu/solicitudes/controller/SolicitudController.java:43: return registro.registrar
+src/main/java/mx/utch/sigsu/solicitudes/service/RegistrarSolicitud.java:42: catalogo.condiciones
+src/main/java/mx/utch/sigsu/catalogo/service/Catalogo.java:47: return new CondicionesDto
+src/main/java/mx/utch/sigsu/solicitudes/service/RegistrarSolicitud.java:44: catalogo.validar
+src/main/java/mx/utch/sigsu/solicitudes/service/RegistrarSolicitud.java:47: "formulario inválido"
+src/main/java/mx/utch/sigsu/compartido/ManejadorErrores.java:15: BusinessException
+src/main/java/mx/utch/sigsu/solicitudes/service/GestionarAdjuntos.java:39: almacen.guardar
+src/main/java/mx/utch/sigsu/solicitudes/repository/AlmacenDeAdjuntos.java:21: public String guardar
+src/main/java/mx/utch/sigsu/solicitudes/service/RegistrarSolicitud.java:40: transacciones.execute
+src/main/java/mx/utch/sigsu/solicitudes/service/RegistrarSolicitud.java:62: catch (DataIntegrityViolationException
+src/main/java/mx/utch/sigsu/solicitudes/service/GestionarAdjuntos.java:62: almacen.borrar
+src/main/java/mx/utch/sigsu/solicitudes/service/RegistrarSolicitud.java:68: String folio = existente
+src/main/java/mx/utch/sigsu/solicitudes/service/RegistrarSolicitud.java:73: "ya tienes "
+src/main/java/mx/utch/sigsu/solicitudes/service/RegistrarSolicitud.java:60: return SolicitudDto.de
+src/main/java/mx/utch/sigsu/solicitudes/dto/SolicitudDto.java:8: public record
+src/main/java/mx/utch/sigsu/solicitudes/controller/SolicitudController.java:40: @ResponseStatus(HttpStatus.CREATED)
+src/main/java/mx/utch/sigsu/notificaciones/service/AvisarCambio.java:27: List.of(cambio.correoEstudiante(), cambio.correoArea())
+postman/SIGSU.local.postman_environment.json:5: baseUrl
+compose.yaml:1: services:
+compose.yaml:31: app:
+compose.yaml:39: SIGSU_ADJUNTOS_RUTA
+compose.yaml:40: SIGSU_VENCIMIENTOS_CRON
+compose.yaml:5: POSTGRES_DB: sigsu
+src/main/resources/application.yaml:15: port:
+src/main/java/mx/utch/sigsu/solicitudes/service/VencerSolicitudes.java:31: public void programado
+
+Comprobación de dependencias internas (rg -n):
+src/main/java/mx/utch/sigsu/notificaciones/service/AvisarCambio.java:3:import mx.utch.sigsu.compartido.CambioDeSolicitud;
+src/main/java/mx/utch/sigsu/notificaciones/service/AvisarCambio.java:4:import mx.utch.sigsu.notificaciones.model.Aviso;
+src/main/java/mx/utch/sigsu/notificaciones/service/AvisarCambio.java:5:import mx.utch.sigsu.notificaciones.repository.CorreoSmtp;
+src/main/java/mx/utch/sigsu/notificaciones/repository/CorreoSmtp.java:3:import mx.utch.sigsu.notificaciones.model.Aviso;
+src/main/java/mx/utch/sigsu/seguridad/service/ConfiguracionSeguridad.java:3:import mx.utch.sigsu.compartido.dto.ErrorResponseDto;
+src/main/java/mx/utch/sigsu/seguridad/service/FiltroIdempotencia.java:6:import mx.utch.sigsu.compartido.dto.ErrorResponseDto;
+src/main/java/mx/utch/sigsu/seguridad/service/Autenticar.java:3:import mx.utch.sigsu.compartido.*;
+src/main/java/mx/utch/sigsu/seguridad/service/Autenticar.java:4:import mx.utch.sigsu.seguridad.repository.UsuarioRepositorio;
+src/main/java/mx/utch/sigsu/seguridad/service/Usuarios.java:3:import mx.utch.sigsu.compartido.BusinessException;
+src/main/java/mx/utch/sigsu/seguridad/service/Usuarios.java:4:import mx.utch.sigsu.seguridad.dto.*;
+src/main/java/mx/utch/sigsu/seguridad/service/Usuarios.java:5:import mx.utch.sigsu.seguridad.model.*;
+src/main/java/mx/utch/sigsu/seguridad/service/Usuarios.java:6:import mx.utch.sigsu.seguridad.repository.*;
+src/main/java/mx/utch/sigsu/solicitudes/controller/VencimientosController.java:3:import mx.utch.sigsu.solicitudes.dto.VencimientosDto;
+src/main/java/mx/utch/sigsu/solicitudes/controller/VencimientosController.java:4:import mx.utch.sigsu.solicitudes.service.VencerSolicitudes;
+src/main/java/mx/utch/sigsu/seguridad/service/IUsuarios.java:3:import mx.utch.sigsu.seguridad.dto.*;
+src/main/java/mx/utch/sigsu/solicitudes/controller/BandejaController.java:3:import mx.utch.sigsu.compartido.UsuarioActual;
+src/main/java/mx/utch/sigsu/solicitudes/controller/BandejaController.java:4:import mx.utch.sigsu.solicitudes.dto.SolicitudDto;
+src/main/java/mx/utch/sigsu/solicitudes/controller/BandejaController.java:5:import mx.utch.sigsu.solicitudes.model.Estado;
+src/main/java/mx/utch/sigsu/solicitudes/controller/BandejaController.java:6:import mx.utch.sigsu.solicitudes.service.ConsultarSolicitudes;
+src/main/java/mx/utch/sigsu/compartido/ManejadorErrores.java:3:import mx.utch.sigsu.compartido.dto.*;
+src/main/java/mx/utch/sigsu/solicitudes/controller/SolicitudController.java:5:import mx.utch.sigsu.compartido.UsuarioActual;
+src/main/java/mx/utch/sigsu/solicitudes/controller/SolicitudController.java:6:import mx.utch.sigsu.solicitudes.dto.*;
+src/main/java/mx/utch/sigsu/solicitudes/controller/SolicitudController.java:7:import mx.utch.sigsu.solicitudes.service.*;
+src/main/java/mx/utch/sigsu/compartido/BusinessException.java:3:import mx.utch.sigsu.compartido.dto.*;
+src/main/java/mx/utch/sigsu/seguridad/repository/ResponsableAreaRepositorio.java:3:import mx.utch.sigsu.seguridad.model.*;
+src/main/java/mx/utch/sigsu/seguridad/repository/UsuarioRepositorio.java:3:import mx.utch.sigsu.seguridad.model.*;
+src/main/java/mx/utch/sigsu/solicitudes/service/GestionarAdjuntos.java:3:import mx.utch.sigsu.compartido.*;
+src/main/java/mx/utch/sigsu/solicitudes/service/GestionarAdjuntos.java:4:import mx.utch.sigsu.solicitudes.dto.*;
+src/main/java/mx/utch/sigsu/solicitudes/service/GestionarAdjuntos.java:5:import mx.utch.sigsu.solicitudes.model.*;
+src/main/java/mx/utch/sigsu/solicitudes/service/GestionarAdjuntos.java:6:import mx.utch.sigsu.solicitudes.repository.*;
+src/main/java/mx/utch/sigsu/solicitudes/service/TomarSolicitud.java:3:import mx.utch.sigsu.compartido.*;
+src/main/java/mx/utch/sigsu/solicitudes/service/TomarSolicitud.java:4:import mx.utch.sigsu.solicitudes.dto.*;
+src/main/java/mx/utch/sigsu/solicitudes/service/TomarSolicitud.java:5:import mx.utch.sigsu.solicitudes.model.*;
+src/main/java/mx/utch/sigsu/solicitudes/service/TomarSolicitud.java:6:import mx.utch.sigsu.solicitudes.repository.*;
+src/main/java/mx/utch/sigsu/solicitudes/service/VencerSolicitudes.java:3:import mx.utch.sigsu.compartido.*;
+src/main/java/mx/utch/sigsu/solicitudes/service/VencerSolicitudes.java:4:import mx.utch.sigsu.solicitudes.dto.*;
+src/main/java/mx/utch/sigsu/solicitudes/service/VencerSolicitudes.java:5:import mx.utch.sigsu.solicitudes.model.*;
+src/main/java/mx/utch/sigsu/solicitudes/service/VencerSolicitudes.java:6:import mx.utch.sigsu.solicitudes.repository.*;
+src/main/java/mx/utch/sigsu/solicitudes/service/ConsultarSolicitudes.java:3:import mx.utch.sigsu.catalogo.service.ICatalogo;
+src/main/java/mx/utch/sigsu/solicitudes/service/ConsultarSolicitudes.java:4:import mx.utch.sigsu.compartido.*;
+src/main/java/mx/utch/sigsu/solicitudes/service/ConsultarSolicitudes.java:5:import mx.utch.sigsu.seguridad.service.IUsuarios;
+src/main/java/mx/utch/sigsu/solicitudes/service/ConsultarSolicitudes.java:6:import mx.utch.sigsu.solicitudes.dto.*;
+src/main/java/mx/utch/sigsu/solicitudes/service/ConsultarSolicitudes.java:7:import mx.utch.sigsu.solicitudes.model.*;
+src/main/java/mx/utch/sigsu/solicitudes/service/ConsultarSolicitudes.java:8:import mx.utch.sigsu.solicitudes.repository.*;
+src/main/java/mx/utch/sigsu/solicitudes/service/RegistrarSolicitud.java:3:import mx.utch.sigsu.catalogo.service.ICatalogo;
+src/main/java/mx/utch/sigsu/solicitudes/service/RegistrarSolicitud.java:4:import mx.utch.sigsu.compartido.*;
+src/main/java/mx/utch/sigsu/solicitudes/service/RegistrarSolicitud.java:5:import mx.utch.sigsu.solicitudes.dto.*;
+src/main/java/mx/utch/sigsu/solicitudes/service/RegistrarSolicitud.java:6:import mx.utch.sigsu.solicitudes.model.*;
+src/main/java/mx/utch/sigsu/solicitudes/service/RegistrarSolicitud.java:7:import mx.utch.sigsu.solicitudes.repository.*;
+src/main/java/mx/utch/sigsu/solicitudes/service/CambiarEstado.java:3:import mx.utch.sigsu.compartido.*;
+src/main/java/mx/utch/sigsu/solicitudes/service/CambiarEstado.java:4:import mx.utch.sigsu.solicitudes.dto.*;
+src/main/java/mx/utch/sigsu/solicitudes/service/CambiarEstado.java:5:import mx.utch.sigsu.solicitudes.model.*;
+src/main/java/mx/utch/sigsu/solicitudes/service/CambiarEstado.java:6:import mx.utch.sigsu.solicitudes.repository.*;
+src/main/java/mx/utch/sigsu/solicitudes/service/RegistrarCambio.java:3:import mx.utch.sigsu.catalogo.service.ICatalogo;
+src/main/java/mx/utch/sigsu/solicitudes/service/RegistrarCambio.java:4:import mx.utch.sigsu.compartido.*;
+src/main/java/mx/utch/sigsu/solicitudes/service/RegistrarCambio.java:5:import mx.utch.sigsu.seguridad.service.IUsuarios;
+src/main/java/mx/utch/sigsu/solicitudes/service/RegistrarCambio.java:6:import mx.utch.sigsu.solicitudes.dto.*;
+src/main/java/mx/utch/sigsu/solicitudes/service/RegistrarCambio.java:7:import mx.utch.sigsu.solicitudes.model.*;
+src/main/java/mx/utch/sigsu/solicitudes/service/RegistrarCambio.java:8:import mx.utch.sigsu.solicitudes.repository.*;
+src/main/java/mx/utch/sigsu/solicitudes/dto/SolicitudDto.java:3:import mx.utch.sigsu.solicitudes.model.Solicitud;
+src/main/java/mx/utch/sigsu/catalogo/controller/CatalogoController.java:3:import mx.utch.sigsu.catalogo.dto.ServicioDto;
+src/main/java/mx/utch/sigsu/catalogo/controller/CatalogoController.java:4:import mx.utch.sigsu.catalogo.service.ICatalogo;
+src/main/java/mx/utch/sigsu/solicitudes/dto/CambiarEstadoDto.java:5:import mx.utch.sigsu.solicitudes.model.Estado;
+src/main/java/mx/utch/sigsu/administracion/repository/ParametroRepositorio.java:3:import mx.utch.sigsu.administracion.model.*;
+src/main/java/mx/utch/sigsu/catalogo/service/Catalogo.java:3:import mx.utch.sigsu.catalogo.dto.*;
+src/main/java/mx/utch/sigsu/catalogo/service/Catalogo.java:4:import mx.utch.sigsu.catalogo.model.*;
+src/main/java/mx/utch/sigsu/catalogo/service/Catalogo.java:5:import mx.utch.sigsu.catalogo.repository.*;
+src/main/java/mx/utch/sigsu/catalogo/service/Catalogo.java:6:import mx.utch.sigsu.compartido.*;
+src/main/java/mx/utch/sigsu/catalogo/service/Catalogo.java:7:import mx.utch.sigsu.compartido.dto.ErrorCampo;
+src/main/java/mx/utch/sigsu/catalogo/repository/DiaInhabilRepositorio.java:3:import mx.utch.sigsu.catalogo.model.*;
+src/main/java/mx/utch/sigsu/catalogo/service/IGestionCatalogo.java:3:import mx.utch.sigsu.catalogo.dto.*;
+src/main/java/mx/utch/sigsu/administracion/controller/AdminController.java:5:import mx.utch.sigsu.administracion.dto.*;
+src/main/java/mx/utch/sigsu/administracion/controller/AdminController.java:6:import mx.utch.sigsu.administracion.service.*;
+src/main/java/mx/utch/sigsu/administracion/controller/AdminController.java:7:import mx.utch.sigsu.catalogo.dto.*;
+src/main/java/mx/utch/sigsu/administracion/controller/AdminController.java:8:import mx.utch.sigsu.catalogo.service.IGestionCatalogo;
+src/main/java/mx/utch/sigsu/administracion/controller/AdminController.java:9:import mx.utch.sigsu.seguridad.dto.*;
+src/main/java/mx/utch/sigsu/catalogo/service/ICatalogo.java:3:import mx.utch.sigsu.catalogo.dto.*;
+src/main/java/mx/utch/sigsu/catalogo/service/ICatalogo.java:4:import mx.utch.sigsu.compartido.dto.ErrorCampo;
+src/main/java/mx/utch/sigsu/catalogo/repository/FormularioServicioRepositorio.java:3:import mx.utch.sigsu.catalogo.model.*;
+src/main/java/mx/utch/sigsu/solicitudes/repository/AlmacenDeAdjuntos.java:3:import mx.utch.sigsu.compartido.BusinessException;
+src/main/java/mx/utch/sigsu/solicitudes/repository/HistorialRepositorio.java:3:import mx.utch.sigsu.solicitudes.model.*;
+src/main/java/mx/utch/sigsu/administracion/service/GestionarParametros.java:3:import mx.utch.sigsu.administracion.dto.ParametroDto;
+src/main/java/mx/utch/sigsu/administracion/service/GestionarParametros.java:4:import mx.utch.sigsu.administracion.model.Parametro;
+src/main/java/mx/utch/sigsu/administracion/service/GestionarParametros.java:5:import mx.utch.sigsu.administracion.repository.ParametroRepositorio;
+src/main/java/mx/utch/sigsu/administracion/service/GestionarUsuarios.java:3:import mx.utch.sigsu.seguridad.dto.*;
+src/main/java/mx/utch/sigsu/administracion/service/GestionarUsuarios.java:4:import mx.utch.sigsu.seguridad.service.IUsuarios;
+src/main/java/mx/utch/sigsu/catalogo/repository/CategoriaRepositorio.java:3:import mx.utch.sigsu.catalogo.model.*;
+src/main/java/mx/utch/sigsu/solicitudes/repository/SolicitudRepositorio.java:3:import mx.utch.sigsu.solicitudes.model.*;
+src/main/java/mx/utch/sigsu/solicitudes/repository/AdjuntoRepositorio.java:3:import mx.utch.sigsu.solicitudes.model.*;
+src/main/java/mx/utch/sigsu/catalogo/repository/ServicioRepositorio.java:3:import mx.utch.sigsu.catalogo.model.*;
+src/main/java/mx/utch/sigsu/catalogo/repository/AreaRepositorio.java:3:import mx.utch.sigsu.catalogo.model.*;
+
+PASS: Solicitudes no importa modelos ni repositorios de Catálogo o Seguridad.
+PASS: 205 referencias archivo:línea válidas; requests de trazabilidad cotejados con la colección.
+Commit de código/colección al generar las anclas: 2fc5b910570d3c132cf42c957aedbe896cebf97d

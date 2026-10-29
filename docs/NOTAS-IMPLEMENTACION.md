@@ -55,6 +55,6 @@ La especificación de esta fase autoriza estas diferencias frente al texto y dia
 
 ## Entrega y límites
 
-No se omitió ningún endpoint de la administración mínima solicitada. No hay interfaz HTML, colección Postman, CAMBIOS.md, TRAZABILIDAD.md, despliegue remoto, pagos, firma electrónica ni integración escolar. La gestión completa de áreas/categorías, modificación de roles de un usuario existente y desactivación de usuarios no tiene endpoints en esta fase; la semilla y la creación multirrol cubren el alcance mínimo. No hay borrado de solicitudes ni historial.
+No se omitió ningún endpoint de la administración mínima solicitada. La fase de pruebas añade una colección Postman repetible, reportes Newman, evidencias directas y TRAZABILIDAD.md. No hay interfaz HTML, despliegue remoto, pagos, firma electrónica ni integración escolar; CAMBIOS.md queda fuera de esta tarea. La gestión completa de áreas/categorías, modificación de roles de un usuario existente y desactivación de usuarios no tiene endpoints en esta fase; la semilla y la creación multirrol cubren el alcance mínimo. No hay borrado de solicitudes ni historial.
 
 Las verificaciones reales están en `docs/VERIFICACION.md` y se pueden repetir con `scripts/verificar.py`. El script crea cuentas y solicitudes propias para no necesitar borrar ni reinicializar la BD. Los contenedores se dejan levantados. El repositorio es local, sin remoto ni push y sin atribuciones en commits.
