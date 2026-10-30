@@ -123,7 +123,7 @@ with (p/'mailpit.txt').open('w') as f:
  for m in j['messages']: f.write(m['Subject']+' | '+', '.join(x['Address'] for x in m['To'])+'\n')
 assert j['total']>0
 PY
-JAVA_HOME=${JAVA_HOME:-/tmp/sigsu-jdk} ./mvnw test > "$work/maven.txt" 2>&1
+./mvnw test > "$work/maven.txt" 2>&1
 { grep -E 'Tests run:|BUILD SUCCESS|Total time:' "$work/maven.txt"; printf '\nInformes Surefire:\n'; cat target/surefire-reports/*.txt; } > "$out/pruebas-unitarias.txt"
 # Podman ps expone health aunque algunos proveedores compose omitan ese dato.
 healthy=false

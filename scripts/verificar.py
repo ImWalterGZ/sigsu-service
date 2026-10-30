@@ -4,6 +4,7 @@ import concurrent.futures
 import datetime as fechas
 import json
 import os
+import shlex
 from pathlib import Path
 import subprocess
 import tempfile
@@ -162,16 +163,16 @@ with tempfile.TemporaryDirectory() as temporal:
 peticion('OpenAPI público', 'GET', '/v3/api-docs', 200)
 # psql rechaza modificaciones aun usando la cuenta dueña de las tablas.
 for nombre, sentencia in [('Trigger historial UPDATE', "UPDATE historial SET observacion='x'"), ('Trigger historial DELETE', 'DELETE FROM historial'), ('Trigger historial TRUNCATE', 'TRUNCATE historial'), ('Trigger formulario', 'UPDATE formulario_servicio SET version=version')]:
-    proceso = subprocess.run(['podman', 'compose', 'exec', '-T', 'postgres', 'psql', '-U', 'sigsu', '-d', 'sigsu', '-c', sentencia], capture_output=True, text=True)
+    proceso = subprocess.run(shlex.split(os.environ.get('COMPOSE', 'docker compose')) + ['exec', '-T', 'postgres', 'psql', '-U', 'sigsu', '-d', 'sigsu', '-c', sentencia], capture_output=True, text=True)
     assert proceso.returncode != 0 and 'es de solo inserción' in proceso.stderr, proceso.stderr
     resultados.append((nombre, sentencia, 'ERROR esperado', proceso.stderr[proceso.stderr.index('ERROR:'):].strip()))
-texto = '# Verificación local\n\nEjecutada con `python3 scripts/verificar.py` el ' + fechas.datetime.now().astimezone().isoformat() + '. Cada petición HTTP se ejecutó mediante curl; el script comprueba status y contenido.\n\n'
+texto = 'Verificación local\n\nEjecutada con python3 scripts/verificar.py el ' + fechas.datetime.now().astimezone().isoformat() + '. Cada petición HTTP se ejecutó mediante curl; el script comprueba status y contenido.\n\n'
 for nombre, ruta, codigo, resultado in resultados:
     if nombre == 'OpenAPI público':
         resultado = {'openapi': resultado.get('openapi'), 'rutas': len(resultado.get('paths', {}))}
     if nombre == 'Catálogo':
         resultado = [{'id': s['id'], 'nombre': s['nombre']} for s in resultado]
-    texto += '## ' + nombre + '\n\n`' + ruta + '` → **' + str(codigo) + '**\n\n```json\n' + json.dumps(resultado, ensure_ascii=False, indent=2) + '\n```\n\n'
-Path('docs').mkdir(exist_ok=True)
-Path('docs/VERIFICACION.md').write_text(texto)
-print('Verificación completa; evidencia en docs/VERIFICACION.md')
+    texto += nombre + '\n' + ruta + ' → ' + str(codigo) + '\n\n' + json.dumps(resultado, ensure_ascii=False, indent=2) + '\n\n'
+Path('docs/evidencias').mkdir(parents=True, exist_ok=True)
+Path('docs/evidencias/verificacion.txt').write_text(texto)
+print('Verificación completa; evidencia en docs/evidencias/verificacion.txt')
