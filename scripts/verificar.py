@@ -4,6 +4,7 @@ import concurrent.futures
 import datetime as fechas
 import json
 import os
+import re
 import shlex
 from pathlib import Path
 import subprocess
@@ -16,6 +17,9 @@ administrador = 'admin@utch.edu.mx:sigsu123'
 responsable = 'resp.escolares@utch.edu.mx:sigsu123'
 segundo = 'resp.escolares2@utch.edu.mx:sigsu123'
 resultados = []
+
+def fecha_iso(valor):
+    return fechas.datetime.fromisoformat(re.sub(r'(\.\d{6})\d+', r'\1', valor).replace('Z', '+00:00'))
 
 def peticion(nombre, metodo, ruta, esperado, usuario=None, datos=None, cabeceras=None, archivo=None):
     with tempfile.TemporaryDirectory() as temporal:
@@ -63,14 +67,14 @@ solicitud, _, _ = registrar(estudiante)
 folio = solicitud['folio']
 dias, _, _ = peticion('Listar días inhábiles', 'GET', '/administracion/dias-inhabiles', 200, administrador)
 inhabiles = {dia['fecha'] for dia in dias}
-creada = fechas.datetime.fromisoformat(solicitud['creadaEn'].replace('Z', '+00:00')).astimezone(ZoneInfo('America/Chihuahua'))
+creada = fecha_iso(solicitud['creadaEn']).astimezone(ZoneInfo('America/Chihuahua'))
 vence = creada
 restantes = 3
 while restantes:
     vence += fechas.timedelta(days=1)
     if vence.weekday() < 5 and vence.date().isoformat() not in inhabiles:
         restantes -= 1
-observado = fechas.datetime.fromisoformat(solicitud['venceEn'].replace('Z', '+00:00'))
+observado = fecha_iso(solicitud['venceEn'])
 assert abs((observado - vence).total_seconds()) < 0.001
 resultados.append(('Vencimiento calculado', 'mismo horario; salta fines de semana e inhábiles', 200, {'creadaEn': solicitud['creadaEn'], 'venceEn': solicitud['venceEn']}))
 duplicado, _, _ = peticion('Duplicado con folio', 'POST', '/solicitudes', 409, estudiante, {'servicioId': servicios[0]['id'], 'datos': {'motivo': 'Otro motivo', 'conCalificaciones': False}})
